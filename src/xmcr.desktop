@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.1
+Type=Application
+Name=XMCR: XKCD MeeGo Comic Reader
+GenericName=Comic Reader
+Comment=Read XKCD strip
+Exec=/usr/bin/single-instance /usr/bin/xmcr
+Icon=/usr/share/icons/hicolor/64x64/apps/xmcr.png
