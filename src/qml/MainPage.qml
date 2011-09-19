@@ -7,6 +7,7 @@ Page {
     orientationLock: PageOrientation.LockPortrait
     tools: ToolBarLayout {
         id: commonTools
+        z: 1
 
         ToolIcon {
             iconId: 'icon-m-toolbar-mediacontrol-previous'
@@ -43,6 +44,7 @@ Page {
         id: topBar
         anchors { left: parent.left; top: parent.top; right: parent.right }
         height: UIConstants.HEADER_DEFAULT_HEIGHT_PORTRAIT
+        z: 1
 
         Rectangle {
             anchors.fill: parent
@@ -78,6 +80,7 @@ Page {
 
     InfoBanner {
         id: transcriptBanner
+        z: 2
         timerEnabled: false
         topMargin: UIConstants.DEFAULT_MARGIN
         leftMargin: UIConstants.DEFAULT_MARGIN
@@ -93,6 +96,7 @@ Page {
 
     BusyIndicator {
         id: busyIndicator
+        z: 10
         visible: image.status != Image.Ready
         running: image.status != Image.Ready
         platformStyle: BusyIndicatorStyle { size: 'large' }
