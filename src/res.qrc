@@ -5,5 +5,7 @@
         <file>qml/workerscript.js</file>
         <file>qml/Header.qml</file>
         <file>qml/XMCR.js</file>
+        <file>qml/AboutView.qml</file>
+        <file>resources/xmcr.svg</file>
     </qresource>
 </RCC>

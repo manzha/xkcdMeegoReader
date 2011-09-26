@@ -17,12 +17,20 @@ Page {
         }
     }
 
+    Component {
+        id: aboutView
+        AboutView { }
+    }
+
     Menu {
         id: mainMenu
         MenuLayout {
             MenuItem {
                 id: aboutEntry
                 text: 'About'
+                onClicked: {
+                    appWindow.pageStack.push(aboutView)
+                }
             }
             MenuItem {
                 id: zoomEntry
