@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Version=0.1
 Type=Application
-Name=XMCR: XKCD MeeGo Comic Reader
+Name=XMCR
 GenericName=Comic Reader
 Comment=Read XKCD strip
 Exec=/usr/bin/single-instance /usr/bin/xmcr
