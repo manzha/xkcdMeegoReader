@@ -114,11 +114,6 @@ Page {
                 height: Math.min(parent.height, implicitHeight)
                 fillMode: Image.PreserveAspectFit
                 smooth: true
-                onStatusChanged: {
-                    if (status == Image.Ready) {
-                        window.state = 'Ready'
-                    }
-                }
             }
         }
 
@@ -208,7 +203,7 @@ Page {
 
     BusyIndicator {
         id: busyIndicator
-        visible: false
+        visible: image.status == Image.Loading
         running: visible
         platformStyle: BusyIndicatorStyle { size: 'large' }
         anchors.centerIn: parent
@@ -219,7 +214,6 @@ Page {
     }
 
     function fetchContent(contentUrl) {
-        window.state = 'Loading'
         asyncWorker.sendMessage({ url: contentUrl })
     }
 
@@ -249,19 +243,4 @@ Page {
             parseResponse(messageObject.response)
         }
     }
-
-    states: [
-        State {
-            name: 'Loading'
-            PropertyChanges {
-                target: busyIndicator; visible: true
-            }
-        },
-        State {
-            name: 'Ready'
-            PropertyChanges {
-                target: busyIndicator; visible: false
-            }
-        }
-    ]
 }
