@@ -8,11 +8,11 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
-   height="64"
-   width="64"
+   height="79.998756"
+   width="79.999985"
    id="svg4047"
-   inkscape:version="0.48.2 r9819"
-   sodipodi:docname="xmcr-icon.svg"
+   inkscape:version="0.48.0 r9654"
+   sodipodi:docname="xmcr.svg"
    inkscape:export-filename="/home/aperez/xmcr-icon.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
@@ -28,16 +28,20 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1280"
-     inkscape:window-height="971"
+     inkscape:window-height="723"
      id="namedview4093"
      showgrid="false"
-     inkscape:zoom="1"
-     inkscape:cx="32"
-     inkscape:cy="32"
-     inkscape:window-x="1366"
-     inkscape:window-y="26"
+     inkscape:zoom="4"
+     inkscape:cx="43.999119"
+     inkscape:cy="31.004458"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg4047" />
+     inkscape:current-layer="svg4047"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
   <defs
      id="defs4049">
     <linearGradient
@@ -90,7 +94,7 @@
   </defs>
   <g
      id="g4065"
-     transform="matrix(0.79487179,0,0,0.79487179,0.20512821,0.20512821)">
+     transform="matrix(1.0256408,0,0,1.0256251,-1.0256408,-1.0256251)">
     <path
        id="hicg_background"
        d="M 79,40 C 79,68.893 68.895,79 40,79 11.105,79 1,68.893 1,40 1,11.106 11.105,1 40,1 68.895,1 79,11.106 79,40 z"
@@ -108,7 +112,7 @@
        style="opacity:0.4;fill:url(#hicg_overlay_grad)" />
   </g>
   <g
-     transform="matrix(0.25437088,-0.11378055,0.11378055,0.25437088,6.4196087,22.720443)"
+     transform="matrix(0.32822042,-0.14681133,0.14681358,0.32821538,6.9930426,28.02594)"
      id="g4070"
      clip-path="url(#clipPath4653)">
     <defs
@@ -182,7 +186,7 @@
           <dc:format>image/svg+xml</dc:format>
           <dc:type
              rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-          <dc:title></dc:title>
+          <dc:title />
         </cc:Work>
       </rdf:RDF>
     </metadata>
@@ -223,13 +227,13 @@
     </g>
   </g>
   <path
-     d="M 52,32 C 52,46.816923 46.817948,52 32,52 17.182052,52 12.000001,46.816923 12.000001,32 12.000001,17.182564 17.182052,12.000001 32,12.000001 c 14.817948,0 20,5.182563 20,19.999999 z"
+     d="m 65.806437,39.999376 c 0,19.118312 -6.686517,25.806049 -25.806446,25.806049 -19.119927,0 -25.806445,-6.687737 -25.806445,-25.806049 0,-19.118976 6.686518,-25.806049 25.806445,-25.806049 19.119929,0 25.806446,6.687073 25.806446,25.806049 z"
      id="path4617"
-     style="fill:none;stroke:#000000;stroke-width:1;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+     style="fill:none;stroke:#000000;stroke-width:1.29031241;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
      inkscape:connector-curvature="0" />
   <path
      inkscape:connector-curvature="0"
-     style="fill:none;stroke:#ffffff;stroke-width:2;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+     style="fill:none;stroke:#ffffff;stroke-width:2.58062482;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
      id="path4649"
-     d="M 52,32 C 52,46.816923 46.817948,52 32,52 17.182052,52 12.000001,46.816923 12.000001,32 12.000001,17.182564 17.182052,12.000001 32,12.000001 c 14.817948,0 20,5.182563 20,19.999999 z" />
+     d="m 65.806437,39.999376 c 0,19.118312 -6.686517,25.806049 -25.806446,25.806049 -19.119927,0 -25.806445,-6.687737 -25.806445,-25.806049 0,-19.118976 6.686518,-25.806049 25.806445,-25.806049 19.119929,0 25.806446,6.687073 25.806446,25.806049 z" />
 </svg>
