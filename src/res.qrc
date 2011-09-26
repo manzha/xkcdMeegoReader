@@ -4,5 +4,6 @@
         <file>qml/MainPage.qml</file>
         <file>qml/workerscript.js</file>
         <file>qml/Header.qml</file>
+        <file>qml/XMCR.js</file>
     </qresource>
 </RCC>

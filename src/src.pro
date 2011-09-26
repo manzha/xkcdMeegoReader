@@ -11,7 +11,8 @@ OTHER_FILES += \
     qml/main.qml \
     qml/MainPage.qml \
     qml/workerscript.js \
-    qml/Header.qml
+    qml/Header.qml \
+    qml/XMCR.js
 
 RESOURCES += \
     res.qrc
