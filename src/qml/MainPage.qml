@@ -40,43 +40,8 @@ Page {
         }
     }
 
-    Item {
-        id: topBar
-        anchors { left: parent.left; top: parent.top; right: parent.right }
-        height: UIConstants.HEADER_DEFAULT_HEIGHT_PORTRAIT
-        z: 1
+    Header { id: topBar }
 
-        Rectangle {
-            anchors.fill: parent
-            color: 'white'
-            opacity: 0.75
-        }
-
-        Text {
-            id: titleText
-            font.pixelSize: UIConstants.FONT_SLARGE
-            color: UIConstants.COLOR_FOREGROUND
-            anchors { top: parent.top; left: parent.left }
-            anchors.topMargin: 15
-            anchors.leftMargin: 16
-        }
-        Text {
-            id: dateText
-            font.pixelSize: UIConstants.FONT_LSMALL
-            color: UIConstants.COLOR_SECONDARY_FOREGROUND
-            anchors { top: titleText.bottom; left: parent.left }
-            anchors.topMargin: 2
-            anchors.leftMargin: 16
-        }
-        Text {
-            id: numberText
-            font.pixelSize: UIConstants.FONT_LSMALL
-            color: UIConstants.COLOR_SECONDARY_FOREGROUND
-            anchors { top: titleText.bottom; right: parent.right }
-            anchors.topMargin: 2
-            anchors.rightMargin: 16
-        }
-    }
 
     InfoBanner {
         id: transcriptBanner
@@ -105,7 +70,12 @@ Page {
 
     Flickable {
         id: flickable
-        anchors.fill: parent
+        anchors {
+            top: topBar.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
         clip: true
         contentHeight: imageContainer.height
         contentWidth: imageContainer.width
@@ -168,7 +138,7 @@ Page {
 
     function parseResponse(response) {
         if (response) {
-            var a = JSON.parse(response);
+            var stripEntry = JSON.parse(response);
 //            listModel.append({
 //                'img': a['img'],
 //                'title': a['title'],
@@ -179,14 +149,12 @@ Page {
 //                'news': a['news'],
 //                'safe_title': a['news'],
 //                'transcript': a['transcript'],
-//                'alt': a['alt'],
-//                'day': a['day']})
-            image.source = a['img']
-            currentNum = parseInt(a['num'])
-            titleText.text = a['title']
-            numberText.text = currentNum
-            dateText.text = a['day'] + '-' + a['month'] + '-' + a['year']
-            transcriptBanner.text = a['alt']
+            image.source = stripEntry['img']
+            currentNum = parseInt(stripEntry['num'])
+            topBar.stripName = stripEntry['title']
+            topBar.stripNumber = currentNum
+            topBar.stripDate = new Date(stripEntry['year'], stripEntry['month'], stripEntry['day'])
+            transcriptBanner.text = stripEntry['alt']
         }
     }
 }

@@ -10,7 +10,8 @@ SOURCES += main.cpp
 OTHER_FILES += \
     qml/main.qml \
     qml/MainPage.qml \
-    qml/workerscript.js
+    qml/workerscript.js \
+    qml/Header.qml
 
 RESOURCES += \
     res.qrc
