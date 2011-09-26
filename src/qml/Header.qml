@@ -48,7 +48,7 @@ Item {
         font.family: UIConstants.FONT_FAMILY
         font.pixelSize: (appWindow.inPortrait ? UIConstants.FONT_LSMALL : UIConstants.FONT_SLARGE)
         color: UIConstants.COLOR_SECONDARY_FOREGROUND
-        text: '#' + stripNumber
+        text: stripName ? '#' + stripNumber : ''
     }
 
     states: [
