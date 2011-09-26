@@ -1,9 +1,19 @@
 TEMPLATE = app
 QT += declarative
-CONFIG += meegotouch
 TARGET = "xmcr"
 DEPENDPATH += .
 INCLUDEPATH += .
+
+# although the app doesn't use meegotouch by itself
+# linking against it removes several style warnings
+CONFIG += meegotouch
+
+# enable booster
+CONFIG += qt-boostable qdeclarative-boostable
+
+# booster flags
+QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
+QMAKE_LFLAGS += -pie -rdynamic
 
 # Input
 SOURCES += main.cpp

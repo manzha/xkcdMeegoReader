@@ -1,14 +1,19 @@
 #include <QApplication>
-#include <QDeclarativeContext>
 #include <QDeclarativeView>
+#include <MDeclarativeCache>
 
-int main(int argc, char *argv[])
+Q_DECL_EXPORT int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
-    QDeclarativeView view;
+    QApplication *app = MDeclarativeCache::qApplication(argc, argv);
+    QDeclarativeView *view = MDeclarativeCache::qDeclarativeView();
 
-    view.setSource(QUrl("qrc:/qml/main.qml"));
-    view.showFullScreen();
+    view->setSource(QUrl("qrc:/qml/main.qml"));
+    view->showFullScreen();
 
-    return app.exec();
+    int result = app->exec();
+
+    delete view;
+    delete app;
+
+    return result;
 }
