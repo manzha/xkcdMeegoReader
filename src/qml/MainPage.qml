@@ -73,9 +73,6 @@ Page {
     property int latestNumber: -1
     property bool showAlt: false
     property bool showControls: false
-    property int zoomType: (zoomSelectionDialog.selectedIndex === 0 ?
-                                XMCR.ZOOM_FIT_ALL :
-                                XMCR.ZOOM_ACTUAL_SIZE)
 
     Component.onCompleted: {
         fetchContent(XMCR.URL)
@@ -97,30 +94,92 @@ Page {
         clip: true
         contentHeight: imageContainer.height
         contentWidth: imageContainer.width
+        onHeightChanged: image.calculateSize()
         visible: image.status == Image.Ready
+
+        // Zoom features support (both pinch gesture and double click) taken from
+        // http://projects.developer.nokia.com/QuickFlickr/browser/qml/ZoomableImage.qml
 
         Item {
             id: imageContainer
-            width: zoomType == XMCR.ZOOM_FIT_ALL ?
-                        flickable.width :
-                        Math.max(flickable.width, image.implicitWidth)
-            height: zoomType == XMCR.ZOOM_FIT_ALL ?
-                        flickable.height :
-                        Math.max(flickable.height, image.implicitHeight)
+            width: Math.max(image.width * image.scale, flickable.width)
+            height: Math.max(image.height * image.scale, flickable.height)
+
             Image {
                 id: image
+                property real prevScale
+                smooth: !flickable.movingVertically
                 anchors.centerIn: parent
-                width: Math.min(parent.width, implicitWidth)
-                height: Math.min(parent.height, implicitHeight)
                 fillMode: Image.PreserveAspectFit
-                smooth: true
+
+                function calculateSize() {
+                    scale = Math.min(flickable.width / width, flickable.height / height) * 0.98;
+                    pinchArea.minScale = scale;
+                    prevScale = Math.min(scale, 1);
+                }
+
+                onScaleChanged: {
+                    if ((width * scale) > flickable.width) {
+                        var xoff = (flickable.width / 2 + flickable.contentX) * scale / prevScale;
+                        flickable.contentX = xoff - flickable.width / 2;
+                    }
+                    if ((height * scale) > flickable.height) {
+                        var yoff = (flickable.height / 2 + flickable.contentY) * scale / prevScale;
+                        flickable.contentY = yoff - flickable.height / 2;
+                    }
+
+                    prevScale = scale;
+                }
+
+                onStatusChanged: {
+                    if (status == Image.Ready) {
+                        calculateSize();
+                    }
+                }
             }
         }
 
-        MouseArea {
+        PinchArea {
+            id: pinchArea
+            property real minScale:  1.0
+            property real lastScale: 1.0
             anchors.fill: parent
+
+            pinch.target: image
+            pinch.minimumScale: minScale
+            pinch.maximumScale: 3.0
+
+            onPinchFinished: flickable.returnToBounds()
+        }
+
+        MouseArea {
+            anchors.fill : parent
+            property bool doubleClicked: false
+
+            Timer {
+                id: clickTimer
+                interval: 350
+                running: false
+                repeat:  false
+                onTriggered: showControls = !showControls
+            }
+
+            onDoubleClicked: {
+                clickTimer.stop();
+                mouse.accepted = true;
+
+                if (image.scale > pinchArea.minScale) {
+                    image.scale = pinchArea.minScale;
+                    flickable.returnToBounds();
+                } else {
+                    image.scale = 2.3;
+                }
+            }
+
             onClicked: {
-                showControls = !showControls
+                // There's a bug in Qt Components emitting a clicked signal
+                // when a double click is done.
+                clickTimer.start()
             }
         }
     }
