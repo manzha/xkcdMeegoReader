@@ -12,8 +12,21 @@ Item {
                                 UIConstants.HEADER_DEFAULT_TOP_SPACING_PORTRAIT :
                                 UIConstants.HEADER_DEFAULT_TOP_SPACING_LANDSCAPE)
     property string stripName: ''
-    property variant stripDate
-    property int stripNumber
+    property variant stripDate: undefined
+    property int stripNumber: -1
+    property bool isLoading
+
+    function setContent(name, date, number) {
+        stripName = name
+        stripDate = date
+        stripNumber = number
+    }
+
+    function clear() {
+        stripName = ''
+        stripDate = undefined
+        stripNumber = -1
+    }
 
     Rectangle {
         id: headerRectangle
@@ -33,6 +46,7 @@ Item {
         anchors { top: parent.top; left: parent.left }
         anchors { topMargin: topMargin; leftMargin: UIConstants.DEFAULT_MARGIN }
         text: stripName
+        visible: stripName !== ''
     }
 
     Text {
@@ -41,6 +55,7 @@ Item {
         font.pixelSize: (appWindow.inPortrait ? UIConstants.FONT_LSMALL : UIConstants.FONT_SLARGE)
         color: UIConstants.COLOR_SECONDARY_FOREGROUND
         text: Qt.formatDate(stripDate, Qt.DefaultLocaleShortDate)
+        visible: stripDate !== undefined
     }
 
     Text {
@@ -49,11 +64,12 @@ Item {
         font.pixelSize: (appWindow.inPortrait ? UIConstants.FONT_LSMALL : UIConstants.FONT_SLARGE)
         color: UIConstants.COLOR_SECONDARY_FOREGROUND
         text: stripName ? '#' + stripNumber : ''
+        visible: stripNumber !== -1
     }
 
     states: [
         State {
-            name: "inLandscape"
+            name: 'inLandscape'
             when: !appWindow.inPortrait
             AnchorChanges {
                 target: headerStripDateText
@@ -75,7 +91,7 @@ Item {
             }
         },
         State {
-            name: "inPortrait"
+            name: 'inPortrait'
             when: appWindow.inPortrait
             AnchorChanges {
                 target: headerStripNumberText

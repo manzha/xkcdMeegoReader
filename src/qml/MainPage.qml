@@ -50,6 +50,7 @@ Page {
     property int latestNumber: -1
     property bool showAlt: false
     property bool showControls: false
+    property bool isLoading: false
 
     Component.onCompleted: {
         fetchContent(XMCR.URL)
@@ -110,6 +111,7 @@ Page {
 
                 onStatusChanged: {
                     if (status == Image.Ready) {
+                        isLoading = false
                         calculateSize();
                     }
                 }
@@ -239,7 +241,7 @@ Page {
 
     BusyIndicator {
         id: busyIndicator
-        visible: image.status == Image.Loading
+        visible: isLoading
         running: visible
         platformStyle: BusyIndicatorStyle { size: 'large' }
         anchors.centerIn: parent
@@ -250,12 +252,15 @@ Page {
     }
 
     function fetchContent(contentUrl) {
+        isLoading = true
+        topBar.clear()
+        image.source = ''
         asyncWorker.sendMessage({ url: contentUrl })
     }
 
     function parseResponse(response) {
         if (response) {
-            var stripEntry = JSON.parse(response);
+            var stripEntry = JSON.parse(response)
 //            listModel.append({
 //                'link': a['link'],
 //                'news': a['news'],
@@ -263,11 +268,12 @@ Page {
 //                'transcript': a['transcript'],
             image.source = stripEntry['img']
             currentNum = parseInt(stripEntry['num'])
-            topBar.stripName = stripEntry['title']
-            topBar.stripNumber = currentNum
             if (latestNumber < currentNum) latestNumber = currentNum
-            topBar.stripDate = new Date(stripEntry['year'], stripEntry['month'], stripEntry['day'])
             altTextBanner.text = stripEntry['alt']
+
+            topBar.setContent(stripEntry['title'],
+                              new Date(stripEntry['year'], stripEntry['month'], stripEntry['day']),
+                              currentNum)
         }
     }
 
