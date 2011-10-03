@@ -166,6 +166,8 @@ Page {
         isLoading = true
         topBar.clear()
         flickable.source = ''
+        showAlt = false
+        altTextBannerText.text = ''
         asyncWorker.sendMessage({ url: contentUrl })
     }
 
