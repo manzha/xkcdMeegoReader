@@ -41,7 +41,7 @@ unix {
 
     #MAKE INSTALL
 
-    INSTALLS += target desktop icon64
+    INSTALLS += target desktop icon64 splash
 
     target.path =$$BINDIR
 
@@ -50,5 +50,9 @@ unix {
 
     icon64.path = $$DATADIR/icons/hicolor/64x64/apps
     icon64.files += ../data/$${TARGET}.png
+
+    splash.path = $$DATADIR/$${TARGET}/
+    splash.files += ../data/xmcr-splash-landscape.jpg
+    splash.files += ../data/xmcr-splash-portrait.jpg
 }
 

@@ -5,5 +5,5 @@ Type=Application
 Name=XMCR
 GenericName=Comic Reader
 Comment=Read XKCD strip
-Exec=/usr/bin/single-instance /usr/bin/xmcr
+Exec=/usr/bin/invoker --single-instance --splash /usr/share/xmcr/xmcr-splash-portrait.jpg --splash-landscape /usr/share/xmcr/xmcr-splash-landscape.jpg --type=d /usr/bin/xmcr
 Icon=/usr/share/icons/hicolor/64x64/apps/xmcr.png
