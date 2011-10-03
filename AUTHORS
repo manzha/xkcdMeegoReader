@@ -7,3 +7,10 @@ Adrian Perez <aperez@igalia.com
 XMCR displays content from XKCD http://xkcd.com
 
 XMCR icon has been created by Adrian Perez.
+
+The ZoomableImage has zoom support by double-click and pinch gesture thanks
+to QuickFlickr's ZoomableImage [1]. QuickFlickr [2] is written by Marko Mattila,
+and licensed under the GPL v2 or v3 licenses.
+
+1. http://projects.developer.nokia.com/QuickFlickr/browser/qml/ZoomableImage.qml
+2. http://projects.developer.nokia.com/QuickFlickr
