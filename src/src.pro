@@ -23,7 +23,8 @@ OTHER_FILES += \
     qml/workerscript.js \
     qml/Header.qml \
     qml/XMCR.js \
-    qml/AboutView.qml
+    qml/AboutView.qml \
+    qml/ZoomableImage.qml
 
 RESOURCES += \
     res.qrc
@@ -50,3 +51,4 @@ unix {
     icon64.path = $$DATADIR/icons/hicolor/64x64/apps
     icon64.files += ../data/$${TARGET}.png
 }
+

@@ -9,3 +9,7 @@ var URL = BASE_URL + JSON_API
 function getUrl(num) {
     return BASE_URL + num + '/' + JSON_API
 }
+
+function getRandomStripNumber(latestNumber) {
+    return Math.ceil(Math.random() * latestNumber) + 1
+}

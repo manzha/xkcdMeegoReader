@@ -31,7 +31,7 @@ Page {
             anchors.horizontalCenter: parent.horizontalCenter
             onClicked: {
                 if (latestNumber != -1) {
-                    var random = Math.ceil(Math.random() * latestNumber) + 1
+                    var random = XMCR.getRandomStripNumber(latestNumber)
                     fetchContent(XMCR.getUrl(random))
                 }
             }
@@ -56,117 +56,21 @@ Page {
         fetchContent(XMCR.URL)
     }
 
-    Rectangle {
-        anchors.fill: flickable
-        color: 'darkgrey'
+    ZoomableImage {
+        id: flickable
+        onImageReady: {
+            isLoading = false
+        }
     }
 
-    Flickable {
-        id: flickable
-        anchors {
-            top: topBar.bottom
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-        clip: true
-        contentHeight: imageContainer.height
-        contentWidth: imageContainer.width
-        onHeightChanged: image.calculateSize()
-        visible: image.status == Image.Ready
-
-        // Zoom features support (both pinch gesture and double click) taken from
-        // http://projects.developer.nokia.com/QuickFlickr/browser/qml/ZoomableImage.qml
-
-        Item {
-            id: imageContainer
-            width: Math.max(image.width * image.scale, flickable.width)
-            height: Math.max(image.height * image.scale, flickable.height)
-
-            Image {
-                id: image
-                property real prevScale
-                smooth: !flickable.movingVertically
-                anchors.centerIn: parent
-                fillMode: Image.PreserveAspectFit
-
-                function calculateSize() {
-                    scale = Math.min(flickable.width / width, flickable.height / height) * 0.98;
-                    pinchArea.minScale = scale;
-                    prevScale = Math.min(scale, 1);
-                }
-
-                onScaleChanged: {
-                    if ((width * scale) > flickable.width) {
-                        var xoff = (flickable.width / 2 + flickable.contentX) * scale / prevScale;
-                        flickable.contentX = xoff - flickable.width / 2;
-                    }
-                    if ((height * scale) > flickable.height) {
-                        var yoff = (flickable.height / 2 + flickable.contentY) * scale / prevScale;
-                        flickable.contentY = yoff - flickable.height / 2;
-                    }
-
-                    prevScale = scale;
-                }
-
-                onStatusChanged: {
-                    if (status == Image.Ready) {
-                        isLoading = false
-                        calculateSize();
-                    }
-                }
-            }
-        }
-
-        PinchArea {
-            id: pinchArea
-            property real minScale:  1.0
-            property real lastScale: 1.0
-            anchors.fill: parent
-
-            pinch.target: image
-            pinch.minimumScale: minScale
-            pinch.maximumScale: 3.0
-
-            onPinchFinished: flickable.returnToBounds()
-        }
-
-        MouseArea {
-            anchors.fill : parent
-            property bool doubleClicked: false
-
-            Timer {
-                id: clickTimer
-                interval: 350
-                running: false
-                repeat:  false
-                onTriggered: showControls = !showControls
-            }
-
-            onDoubleClicked: {
-                clickTimer.stop();
-                mouse.accepted = true;
-
-                if (image.scale > pinchArea.minScale) {
-                    image.scale = pinchArea.minScale;
-                    flickable.returnToBounds();
-                } else {
-                    image.scale = 2.3;
-                }
-            }
-
-            onClicked: {
-                // There's a bug in Qt Components emitting a clicked signal
-                // when a double click is done.
-                clickTimer.start()
-            }
-        }
+    ScrollDecorator {
+        flickableItem: flickable
     }
 
     Rectangle {
         id: altTextBanner
         color: 'white'
-        opacity: showAlt ? 0.75 : 0
+        opacity: showAlt ? 0.85 : 0
         anchors.fill: flickable
 
         property alias text: altTextBannerText.text
@@ -247,14 +151,10 @@ Page {
         anchors.centerIn: parent
     }
 
-    ScrollDecorator {
-        flickableItem: flickable
-    }
-
     function fetchContent(contentUrl) {
         isLoading = true
         topBar.clear()
-        image.source = ''
+        flickable.source = ''
         asyncWorker.sendMessage({ url: contentUrl })
     }
 
@@ -266,7 +166,7 @@ Page {
 //                'news': a['news'],
 //                'safe_title': a['safe_title'],
 //                'transcript': a['transcript'],
-            image.source = stripEntry['img']
+            flickable.source = stripEntry['img']
             currentNum = parseInt(stripEntry['num'])
             if (latestNumber < currentNum) latestNumber = currentNum
             altTextBanner.text = stripEntry['alt']

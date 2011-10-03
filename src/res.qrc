@@ -2,10 +2,11 @@
     <qresource prefix="/">
         <file>qml/main.qml</file>
         <file>qml/MainPage.qml</file>
-        <file>qml/workerscript.js</file>
         <file>qml/Header.qml</file>
-        <file>qml/XMCR.js</file>
+        <file>qml/ZoomableImage.qml</file>
         <file>qml/AboutView.qml</file>
+        <file>qml/workerscript.js</file>
+        <file>qml/XMCR.js</file>
         <file>resources/xmcr.svg</file>
     </qresource>
 </RCC>
