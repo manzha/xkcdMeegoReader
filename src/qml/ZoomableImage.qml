@@ -7,12 +7,6 @@ import com.nokia.extras 1.0
 
 Flickable {
     id: flickable
-    anchors {
-        top: topBar.bottom
-        left: parent.left
-        right: parent.right
-        bottom: parent.bottom
-    }
     clip: true
     contentHeight: imageContainer.height
     contentWidth: imageContainer.width
@@ -20,11 +14,6 @@ Flickable {
 
     property alias source: image.source
     signal imageReady()
-
-    Rectangle {
-        anchors.fill: parent
-        color: 'darkgrey'
-    }
 
     Item {
         id: imageContainer

@@ -44,6 +44,11 @@ Page {
         }
     }
 
+    Rectangle {
+        anchors.fill: parent
+        color: 'darkgrey'
+    }
+
     Header { id: topBar }
 
     property int currentNum: -1
@@ -58,6 +63,12 @@ Page {
 
     ZoomableImage {
         id: flickable
+        anchors {
+            top: topBar.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
         onImageReady: {
             isLoading = false
         }
