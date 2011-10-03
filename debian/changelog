@@ -1,3 +1,11 @@
+xmcr (0.2.0) unstable; urgency=low
+
+  * Added splash screens
+  * Improve content loading
+  * Support pinch gestures for zooming the comic image
+
+ -- Simon Pena <spena@igalia.com>  Mon, 03 Oct 2011 23:00:59 +0300
+
 xmcr (0.1.0) unstable; urgency=low
 
   * Initial release
