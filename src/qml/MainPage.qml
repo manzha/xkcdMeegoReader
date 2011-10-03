@@ -6,16 +6,6 @@ import "XMCR.js" as XMCR
 
 Page {
     id: window
-    SelectionDialog {
-        id: zoomSelectionDialog
-        titleText: 'Zoom type'
-        selectedIndex: 0
-
-        model: ListModel {
-            ListElement { name: 'Fit all' }
-            ListElement { name: 'Actual size' }
-        }
-    }
 
     Component {
         id: aboutView
@@ -30,19 +20,6 @@ Page {
                 text: 'About'
                 onClicked: {
                     appWindow.pageStack.push(aboutView)
-                }
-            }
-            MenuItem {
-                id: zoomEntry
-                text: 'Zoom level'
-                Image {
-                    source: 'image://theme/icon-m-common-combobox-arrow'
-                    anchors.right: parent.right
-                    anchors.rightMargin: UIConstants.DEFAULT_MARGIN
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-                onClicked: {
-                    zoomSelectionDialog.open()
                 }
             }
         }
