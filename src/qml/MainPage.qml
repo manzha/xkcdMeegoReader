@@ -114,7 +114,7 @@ Page {
 
         ToolIcon {
             id: firstStrip
-            iconId: 'icon-m-toolbar-mediacontrol-previous'
+            iconId: enabled ? 'icon-m-toolbar-mediacontrol-previous' : 'icon-m-toolbar-mediacontrol-previous-dimmed'
             enabled: currentNum != 1
             onClicked: fetchContent(XMCR.getUrl(1))
             anchors.left: parent.left
@@ -122,7 +122,7 @@ Page {
 
         ToolIcon {
             id: previousStrip
-            iconId: 'icon-m-toolbar-previous'
+            iconId: enabled ? 'icon-m-toolbar-previous' : 'icon-m-toolbar-previous-dimmed'
             enabled: currentNum != 1
             onClicked: fetchContent(XMCR.getUrl(currentNum - 1))
             anchors.left: firstStrip.right
@@ -140,7 +140,7 @@ Page {
 
         ToolIcon {
             id: nextStrip
-            iconId: 'icon-m-toolbar-next'
+            iconId: enabled ? 'icon-m-toolbar-next' : 'icon-m-toolbar-next-dimmed'
             enabled: currentNum != latestNumber
             onClicked: fetchContent(XMCR.getUrl(currentNum + 1))
             anchors.right: lastStrip.left
@@ -149,7 +149,7 @@ Page {
 
         ToolIcon {
             id: lastStrip
-            iconId: 'icon-m-toolbar-mediacontrol-next'
+            iconId: enabled ? 'icon-m-toolbar-mediacontrol-next' : 'icon-m-toolbar-mediacontrol-next-dimmed'
             enabled: currentNum != latestNumber
             onClicked: fetchContent(XMCR.URL)
             anchors.right: parent.right
