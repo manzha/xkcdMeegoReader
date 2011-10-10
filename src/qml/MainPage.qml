@@ -141,6 +141,7 @@ Page {
         ToolIcon {
             id: nextStrip
             iconId: 'icon-m-toolbar-next'
+            enabled: currentNum != latestNumber
             onClicked: fetchContent(XMCR.getUrl(currentNum + 1))
             anchors.right: lastStrip.left
             anchors.rightMargin: (alternateText.x - firstStrip.x) / 2 - firstStrip.width
@@ -149,6 +150,7 @@ Page {
         ToolIcon {
             id: lastStrip
             iconId: 'icon-m-toolbar-mediacontrol-next'
+            enabled: currentNum != latestNumber
             onClicked: fetchContent(XMCR.URL)
             anchors.right: parent.right
         }
