@@ -78,7 +78,7 @@ Page {
                            UIConstants.COLOR_FOREGROUND :
                            UIConstants.COLOR_INVERTED_FOREGROUND
                 text: '<a href="mailto:spena@igalia.com">spena@igalia.com</a> | ' +
-                      '<a href="http://www.simonpena.com">simonpena.com</a>'
+                      '<a href="http://www.simonpena.com/?utm_source=harmattan&utm_medium=apps&utm_campaign=xmcr">simonpena.com</a>'
                 onLinkActivated: Qt.openUrlExternally(link)
             }
 
