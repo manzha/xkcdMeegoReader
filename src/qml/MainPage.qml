@@ -149,8 +149,7 @@ Page {
 
         ToolIcon {
             id: lastStrip
-            iconId: enabled ? 'icon-m-toolbar-mediacontrol-next' : 'icon-m-toolbar-mediacontrol-next-dimmed'
-            enabled: currentNum != latestNumber
+            iconId: 'icon-m-toolbar-mediacontrol-next'
             onClicked: fetchContent(XMCR.URL)
             anchors.right: parent.right
         }
