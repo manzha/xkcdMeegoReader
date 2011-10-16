@@ -45,6 +45,13 @@ Item {
         color: UIConstants.COLOR_FOREGROUND
         anchors { top: parent.top; left: parent.left }
         anchors { topMargin: topMargin; leftMargin: UIConstants.DEFAULT_MARGIN }
+        // In portrait mode, we can use all the space minus the margins
+        // In landscape, we take the side margins off, then the date and number, and
+        // also the margins between them
+        width: (appWindow.inPortrait ?
+                    parent.width - 2 * UIConstants.DEFAULT_MARGIN :
+                    parent.width - headerStripDateText.width - headerStripNumberText.width - 4 * UIConstants.DEFAULT_MARGIN)
+        elide: Text.ElideRight
         text: stripName
         visible: stripName !== ''
     }
