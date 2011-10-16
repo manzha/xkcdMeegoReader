@@ -1,3 +1,12 @@
+xmcr (0.2.1) unstable; urgency=low
+
+  * Fixed: issue #1 - Animated images aren't supported
+  * Fixed: issue #2 - "Next" can be clicked when already in the last comic
+    entry
+  * Fixed: issue #3 - Large titles are not wrapped
+
+ -- Simon Pena <spena@igalia.com>  Sun, 16 Oct 2011 13:09:46 +0300
+
 xmcr (0.2.0) unstable; urgency=low
 
   * Added splash screens
