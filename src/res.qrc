@@ -8,5 +8,7 @@
         <file>qml/workerscript.js</file>
         <file>qml/XMCR.js</file>
         <file>resources/xmcr.svg</file>
+        <file>qml/CommonToolBar.qml</file>
+        <file>qml/HomeView.qml</file>
     </qresource>
 </RCC>

@@ -7,5 +7,5 @@ PageStackWindow {
     initialPage: mainPage
     showStatusBar: appWindow.inPortrait
 
-    MainPage { id: mainPage }
+    HomeView { id: mainPage }
 }

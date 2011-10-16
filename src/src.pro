@@ -24,7 +24,9 @@ OTHER_FILES += \
     qml/Header.qml \
     qml/XMCR.js \
     qml/AboutView.qml \
-    qml/ZoomableImage.qml
+    qml/ZoomableImage.qml \
+    qml/HomeView.qml \
+    qml/CommonToolBar.qml
 
 RESOURCES += \
     res.qrc
@@ -55,4 +57,6 @@ unix {
     splash.files += ../data/xmcr-splash-landscape.jpg
     splash.files += ../data/xmcr-splash-portrait.jpg
 }
+
+
 
