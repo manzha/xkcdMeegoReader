@@ -14,6 +14,8 @@ Flickable {
 
     property alias source: image.source
     signal imageReady()
+    signal swipeLeft()
+    signal swipeRight()
 
     Item {
         id: imageContainer
@@ -72,6 +74,8 @@ Flickable {
     MouseArea {
         anchors.fill : parent
         property bool doubleClicked: false
+        property int startX
+        property int startY
 
         Timer {
             id: clickTimer
@@ -98,5 +102,24 @@ Flickable {
             // when a double click is done.
             clickTimer.start()
         }
+
+        onPressed: {
+            startX = mouse.x
+            startY = mouse.y
+        }
+
+        onReleased: {
+            var deltax = mouse.x - startX
+            var deltay = mouse.y - startY
+
+            if (Math.abs(deltax) > 50 || Math.abs(deltay) > 50) {
+                if (deltax > 30 && Math.abs(deltay) < 30) {
+                    flickable.swipeRight()
+                } else if (deltax < -30 && Math.abs(deltay) < 30) {
+                    flickable.swipeLeft()
+                }
+            }
+        }
+
     }
 }
