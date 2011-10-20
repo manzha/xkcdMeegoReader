@@ -85,7 +85,7 @@ Flickable {
             repeat:  false
             onTriggered: {
                 if (!parent.swipeDone) {
-                    showControls = !showControls
+                    showAlt = !showAlt
                 }
                 parent.swipeDone = false
             }

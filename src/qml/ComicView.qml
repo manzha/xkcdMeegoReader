@@ -94,60 +94,6 @@ Page {
         }
     }
 
-    Rectangle {
-        id: extraTools
-        anchors { bottom: parent.bottom; left: parent.left; right: parent.right }
-        height: UIConstants.LIST_ITEM_HEIGHT_SMALL
-        color: 'white'
-        opacity: showControls ? 0.75 : 0
-
-        Behavior on opacity {
-            NumberAnimation { duration: 200 }
-        }
-
-        ToolIcon {
-            id: firstStrip
-            iconId: enabled ? 'icon-m-toolbar-mediacontrol-previous' : 'icon-m-toolbar-mediacontrol-previous-dimmed'
-            enabled: currentNum != 1
-            onClicked: fetchContent(XMCR.getUrl(1))
-            anchors.left: parent.left
-        }
-
-        ToolIcon {
-            id: previousStrip
-            iconId: enabled ? 'icon-m-toolbar-previous' : 'icon-m-toolbar-previous-dimmed'
-            enabled: currentNum != 1
-            onClicked: window.moveToPrevious()
-            anchors.left: firstStrip.right
-            anchors.leftMargin: (alternateText.x - firstStrip.x) / 2 - firstStrip.width
-        }
-
-        ToolIcon {
-            id: alternateText
-            iconId: 'icon-m-invitation-pending'
-            onClicked: {
-                showAlt = !showAlt
-            }
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-
-        ToolIcon {
-            id: nextStrip
-            iconId: enabled ? 'icon-m-toolbar-next' : 'icon-m-toolbar-next-dimmed'
-            enabled: currentNum != latestNumber
-            onClicked: window.moveToNext()
-            anchors.right: lastStrip.left
-            anchors.rightMargin: (alternateText.x - firstStrip.x) / 2 - firstStrip.width
-        }
-
-        ToolIcon {
-            id: lastStrip
-            iconId: 'icon-m-toolbar-mediacontrol-next'
-            onClicked: fetchContent(XMCR.URL)
-            anchors.right: parent.right
-        }
-    }
-
     BusyIndicator {
         id: busyIndicator
         visible: isLoading
