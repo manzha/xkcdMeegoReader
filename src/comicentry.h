@@ -15,7 +15,7 @@ class ComicEntry : public QObject
     Q_PROPERTY(int id READ id)
     Q_PROPERTY(bool favorite READ isFavorite WRITE setFavorite)
     Q_PROPERTY(QString altText READ altText WRITE setAltText)
-    Q_PROPERTY(QUrl imageSource READ imageSource)
+    Q_PROPERTY(QUrl imageSource READ imageSource WRITE setImageSource)
 
 public:
     ComicEntry(const QString &name, const QString &date, const QString &id);
@@ -30,6 +30,7 @@ public:
 
     void setFavorite(bool favorite);
     void setAltText(const QString &altText);
+    void setImageSource(const QUrl &imageSource);
 
 private:
     QString m_name;

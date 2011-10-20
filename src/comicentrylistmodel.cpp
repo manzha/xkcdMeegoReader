@@ -57,6 +57,39 @@ QVariant ComicEntryListModel::data(const QModelIndex &index, int role) const
     }
 }
 
+bool ComicEntryListModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (!index.isValid() || index.row() >= m_comicEntries.count()) {
+        return false;
+    }
+
+    ComicEntry *entry = m_comicEntries.at(index.row());
+
+    switch (role) {
+    case ComicEntryAltTextRole:
+        entry->setAltText(value.toString());
+        break;
+    case ComicEntryFavoriteRole:
+        entry->setFavorite(value.toBool());
+        break;
+    case ComicEntryImageSourceRole:
+        entry->setImageSource(value.toUrl());
+        break;
+    default:
+        return false;
+    }
+
+    emit dataChanged(index, index);
+    return true;
+}
+
+Qt::ItemFlags ComicEntryListModel::flags(const QModelIndex &index) const
+{
+    Q_UNUSED(index)
+
+    return Qt::ItemIsEditable & Qt::ItemIsEnabled & Qt::ItemIsSelectable;
+}
+
 void ComicEntryListModel::setComicEntries(QList<ComicEntry*> entries)
 {
     if (m_comicEntries.count() > 0) {

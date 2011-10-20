@@ -56,3 +56,8 @@ void ComicEntry::setAltText(const QString &altText)
 {
     m_altText = altText;
 }
+
+void ComicEntry::setImageSource(const QUrl &imageSource)
+{
+    m_imageSource = imageSource;
+}
