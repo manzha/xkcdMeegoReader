@@ -1,5 +1,5 @@
 TEMPLATE = app
-QT += declarative
+QT += declarative webkit
 TARGET = "xmcr"
 DEPENDPATH += .
 INCLUDEPATH += .
@@ -11,12 +11,20 @@ CONFIG += meegotouch
 # enable booster
 CONFIG += qt-boostable qdeclarative-boostable
 
+# Use share-ui interface
+CONFIG += shareuiinterface-maemo-meegotouch mdatauri
+
 # booster flags
 QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
 QMAKE_LFLAGS += -pie -rdynamic
 
 # Input
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    sortfiltermodel.cpp \
+    controller.cpp \
+    comicentry.cpp \
+    comicentrylistmodel.cpp \
+    comicentryfetcher.cpp
 OTHER_FILES += \
     qml/main.qml \
     qml/MainPage.qml \
@@ -58,5 +66,11 @@ unix {
     splash.files += ../data/xmcr-splash-portrait.jpg
 }
 
+HEADERS += \
+    sortfiltermodel.h \
+    controller.h \
+    comicentry.h \
+    comicentrylistmodel.h \
+    comicentryfetcher.h
 
 
