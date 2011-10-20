@@ -74,6 +74,7 @@ Flickable {
     MouseArea {
         anchors.fill : parent
         property bool doubleClicked: false
+        property bool swipeDone: false
         property int startX
         property int startY
 
@@ -82,18 +83,23 @@ Flickable {
             interval: 350
             running: false
             repeat:  false
-            onTriggered: showControls = !showControls
+            onTriggered: {
+                if (!parent.swipeDone) {
+                    showControls = !showControls
+                }
+                parent.swipeDone = false
+            }
         }
 
         onDoubleClicked: {
-            clickTimer.stop();
-            mouse.accepted = true;
+            clickTimer.stop()
+            mouse.accepted = true
 
             if (image.scale > pinchArea.minScale) {
-                image.scale = pinchArea.minScale;
-                flickable.returnToBounds();
+                image.scale = pinchArea.minScale
+                flickable.returnToBounds()
             } else {
-                image.scale = 2.3;
+                image.scale = 2.3
             }
         }
 
@@ -114,8 +120,11 @@ Flickable {
 
             if (Math.abs(deltax) > 50 || Math.abs(deltay) > 50) {
                 if (deltax > 30 && Math.abs(deltay) < 30) {
+                    swipeDone = true
                     flickable.swipeRight()
                 } else if (deltax < -30 && Math.abs(deltay) < 30) {
+                    swipeDone = true
+
                     flickable.swipeLeft()
                 }
             }
