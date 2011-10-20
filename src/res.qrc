@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/main.qml</file>
-        <file>qml/MainPage.qml</file>
         <file>qml/Header.qml</file>
         <file>qml/ZoomableImage.qml</file>
         <file>qml/AboutView.qml</file>
@@ -10,5 +9,9 @@
         <file>resources/xmcr.svg</file>
         <file>qml/CommonToolBar.qml</file>
         <file>qml/HomeView.qml</file>
+        <file>qml/ComicView.qml</file>
+        <file>qml/ListSectionDelegate.qml</file>
+        <file>qml/EntryMenuDelegate.qml</file>
+        <file>qml/ArchiveView.qml</file>
     </qresource>
 </RCC>

@@ -7,40 +7,15 @@ import "XMCR.js" as XMCR
 Page {
     id: window
 
-    Component {
-        id: aboutView
-        AboutView { }
-    }
-
-    Menu {
-        id: mainMenu
-        MenuLayout {
-            MenuItem {
-                id: aboutEntry
-                text: 'About'
-                onClicked: {
-                    appWindow.pageStack.push(aboutView)
-                }
-            }
-        }
-    }
     tools: ToolBarLayout {
-        id: commonTools
+        ToolIcon {
+            iconId: 'toolbar-back'
+            onClicked: appWindow.pageStack.pop()
+        }
         ToolIcon {
             iconId: 'icon-m-toolbar-shuffle'
             anchors.horizontalCenter: parent.horizontalCenter
-            onClicked: {
-                if (latestNumber != -1) {
-                    var random = XMCR.getRandomStripNumber(latestNumber)
-                    fetchContent(XMCR.getUrl(random))
-                }
-            }
-        }
-        ToolIcon {
-            iconId: 'toolbar-view-menu'
-            anchors.right: parent.right
-            onClicked: (mainMenu.status == DialogStatus.Closed) ?
-                           mainMenu.open() : mainMenu.close()
+            onClicked: window.moveToRandom()
         }
     }
 
@@ -57,8 +32,22 @@ Page {
     property bool showControls: false
     property bool isLoading: false
 
-    Component.onCompleted: {
-        fetchContent(XMCR.URL)
+    property variant currentEntry
+
+    signal moveToPrevious()
+    signal moveToNext()
+    signal moveToRandom()
+
+    onStatusChanged: {
+        if (status == PageStatus.Active && currentEntry) {
+            fetchContent(XMCR.getUrl(currentEntry.entryId))
+        }
+    }
+
+    onCurrentEntryChanged: {
+        if (status == PageStatus.Active && currentEntry) {
+            fetchContent(XMCR.getUrl(currentEntry.entryId))
+        }
     }
 
     ZoomableImage {
@@ -72,6 +61,8 @@ Page {
         onImageReady: {
             isLoading = false
         }
+        onSwipeLeft: window.moveToPrevious()
+        onSwipeRight: window.moveToNext()
     }
 
     ScrollDecorator {
@@ -124,7 +115,7 @@ Page {
             id: previousStrip
             iconId: enabled ? 'icon-m-toolbar-previous' : 'icon-m-toolbar-previous-dimmed'
             enabled: currentNum != 1
-            onClicked: fetchContent(XMCR.getUrl(currentNum - 1))
+            onClicked: window.moveToPrevious()
             anchors.left: firstStrip.right
             anchors.leftMargin: (alternateText.x - firstStrip.x) / 2 - firstStrip.width
         }
@@ -142,7 +133,7 @@ Page {
             id: nextStrip
             iconId: enabled ? 'icon-m-toolbar-next' : 'icon-m-toolbar-next-dimmed'
             enabled: currentNum != latestNumber
-            onClicked: fetchContent(XMCR.getUrl(currentNum + 1))
+            onClicked: window.moveToNext()
             anchors.right: lastStrip.left
             anchors.rightMargin: (alternateText.x - firstStrip.x) / 2 - firstStrip.width
         }
@@ -170,23 +161,20 @@ Page {
         showAlt = false
         altTextBannerText.text = ''
         asyncWorker.sendMessage({ url: contentUrl })
+        topBar.setContent(currentEntry.title,
+                          currentEntry.date,
+                          currentEntry.entryId)
     }
 
     function parseResponse(response) {
         if (response) {
             var stripEntry = JSON.parse(response)
-//            listModel.append({
-//                'link': a['link'],
-//                'news': a['news'],
-//                'safe_title': a['safe_title'],
-//                'transcript': a['transcript'],
             flickable.source = stripEntry['img']
             currentNum = parseInt(stripEntry['num'])
             if (latestNumber < currentNum) latestNumber = currentNum
             altTextBanner.text = stripEntry['alt']
-
             topBar.setContent(stripEntry['title'],
-                              new Date(stripEntry['year'], stripEntry['month'], stripEntry['day']),
+                              new Date(stripEntry['year'], stripEntry['month'] - 1, stripEntry['day']),
                               currentNum)
         }
     }

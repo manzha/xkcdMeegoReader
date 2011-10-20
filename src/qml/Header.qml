@@ -11,19 +11,19 @@ Item {
     property int topMargin: (appWindow.inPortrait ?
                                 UIConstants.HEADER_DEFAULT_TOP_SPACING_PORTRAIT :
                                 UIConstants.HEADER_DEFAULT_TOP_SPACING_LANDSCAPE)
-    property string stripName: ''
+    property string title: ''
     property variant stripDate: undefined
     property int stripNumber: -1
     property bool isLoading
 
     function setContent(name, date, number) {
-        stripName = name
+        title = name
         stripDate = date
         stripNumber = number
     }
 
     function clear() {
-        stripName = ''
+        title = ''
         stripDate = undefined
         stripNumber = -1
     }
@@ -39,7 +39,7 @@ Item {
     }
 
     Text {
-        id: headerStripNameText
+        id: headerTitleText
         font.family: UIConstants.FONT_FAMILY
         font.pixelSize: UIConstants.FONT_SLARGE
         color: UIConstants.COLOR_FOREGROUND
@@ -52,8 +52,8 @@ Item {
                     parent.width - 2 * UIConstants.DEFAULT_MARGIN :
                     parent.width - headerStripDateText.width - headerStripNumberText.width - 4 * UIConstants.DEFAULT_MARGIN)
         elide: Text.ElideRight
-        text: stripName
-        visible: stripName !== ''
+        text: title
+        visible: title !== ''
     }
 
     Text {
@@ -61,7 +61,7 @@ Item {
         font.family: UIConstants.FONT_FAMILY
         font.pixelSize: (appWindow.inPortrait ? UIConstants.FONT_LSMALL : UIConstants.FONT_SLARGE)
         color: UIConstants.COLOR_SECONDARY_FOREGROUND
-        text: Qt.formatDate(stripDate, Qt.DefaultLocaleShortDate)
+        text: Qt.formatDate(stripDate)
         visible: stripDate !== undefined
     }
 
@@ -70,7 +70,7 @@ Item {
         font.family: UIConstants.FONT_FAMILY
         font.pixelSize: (appWindow.inPortrait ? UIConstants.FONT_LSMALL : UIConstants.FONT_SLARGE)
         color: UIConstants.COLOR_SECONDARY_FOREGROUND
-        text: stripName ? '#' + stripNumber : ''
+        text: title ? '#' + stripNumber : ''
         visible: stripNumber !== -1
     }
 
@@ -80,7 +80,7 @@ Item {
             when: !appWindow.inPortrait
             AnchorChanges {
                 target: headerStripDateText
-                anchors.top: headerStripNameText.top
+                anchors.top: headerTitleText.top
                 anchors.right: headerStripDateText.parent.right
             }
             PropertyChanges {
@@ -93,7 +93,7 @@ Item {
             }
             AnchorChanges {
                 target: headerStripNumberText
-                anchors.top: headerStripNameText.top
+                anchors.top: headerTitleText.top
                 anchors.right: headerStripDateText.left
             }
         },
@@ -102,7 +102,7 @@ Item {
             when: appWindow.inPortrait
             AnchorChanges {
                 target: headerStripNumberText
-                anchors.top: headerStripNameText.bottom
+                anchors.top: headerTitleText.bottom
                 anchors.right: headerStripNumberText.parent.right
             }
             PropertyChanges {
@@ -112,8 +112,8 @@ Item {
             }
             AnchorChanges {
                 target: headerStripDateText
-                anchors.top: headerStripNameText.bottom
-                anchors.left: headerStripNameText.left
+                anchors.top: headerTitleText.bottom
+                anchors.left: headerTitleText.left
             }
             PropertyChanges {
                 target: headerStripDateText

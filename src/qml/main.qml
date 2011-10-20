@@ -8,4 +8,5 @@ PageStackWindow {
     showStatusBar: appWindow.inPortrait
 
     HomeView { id: mainPage }
+    ComicView { id: comicView }
 }

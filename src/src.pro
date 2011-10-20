@@ -27,14 +27,17 @@ SOURCES += main.cpp \
     comicentryfetcher.cpp
 OTHER_FILES += \
     qml/main.qml \
-    qml/MainPage.qml \
     qml/workerscript.js \
     qml/Header.qml \
     qml/XMCR.js \
     qml/AboutView.qml \
     qml/ZoomableImage.qml \
     qml/HomeView.qml \
-    qml/CommonToolBar.qml
+    qml/CommonToolBar.qml \
+    qml/ComicView.qml \
+    qml/ListSectionDelegate.qml \
+    qml/EntryMenuDelegate.qml \
+    qml/ArchiveView.qml
 
 RESOURCES += \
     res.qrc
@@ -72,5 +75,3 @@ HEADERS += \
     comicentry.h \
     comicentrylistmodel.h \
     comicentryfetcher.h
-
-

@@ -6,11 +6,7 @@ Page {
 
     TabGroup {
         id: tabGroup
-        currentTab: welcomeTab
-
-        PageStack {
-            id: welcomeTab
-        }
+        currentTab: archiveTab
 
         PageStack {
             id: archiveTab
@@ -22,9 +18,11 @@ Page {
     }
 
     CommonToolBar { id: commonTools }
-    MainPage { id: mainPage }
+    ArchiveView { id: archiveView }
+    ArchiveView { id: favoritesView }
 
     Component.onCompleted: {
-        welcomeTab.push(mainPage)
+        archiveTab.push(archiveView, { filterFavorites: false })
+        favoritesTab.push(favoritesView, { filterFavorites: true })
     }
 }
