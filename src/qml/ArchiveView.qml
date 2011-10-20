@@ -20,6 +20,16 @@ Page {
         comicView.moveToNext.connect(showNext)
         comicView.moveToPrevious.connect(showPrevious)
         comicView.moveToRandom.connect(showRandom)
+        commonTools.jumpToFirstEntry.connect(jumpToFirst)
+        commonTools.jumpToLastEntry.connect(jumpToLast)
+    }
+
+    function jumpToLast() {
+        list.positionViewAtEnd()
+    }
+
+    function jumpToFirst() {
+        list.positionViewAtBeginning()
     }
 
     function showNext() {
