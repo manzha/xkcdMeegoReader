@@ -41,6 +41,8 @@ Page {
     onStatusChanged: {
         if (status == PageStatus.Active && currentEntry) {
             fetchContent(XMCR.getUrl(currentEntry.entryId))
+        } else if (status == PageStatus.Inactive) {
+            flickable.source = ''
         }
     }
 
