@@ -12,6 +12,13 @@ SortFilterModel::~SortFilterModel()
 {
 }
 
+void SortFilterModel::setSourceModel(QAbstractItemModel *sourceModel)
+{
+    QSortFilterProxyModel::setSourceModel(sourceModel);
+    connect(sourceModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
+            this, SLOT(onDataChanged(QModelIndex,QModelIndex)), Qt::UniqueConnection);
+}
+
 void SortFilterModel::setFavoritesFiltered(bool filtering)
 {
     m_filteringFavorites = filtering;
@@ -45,4 +52,10 @@ bool SortFilterModel::filterAcceptsRow(int sourceRow,
     return (name.contains(filterRegExp()) ||
             month.contains(filterRegExp()) ||
             id.contains(filterRegExp())) && (isFavorite || !m_filteringFavorites);
+}
+
+void SortFilterModel::onDataChanged(const QModelIndex &topLeft,
+                                    const QModelIndex &bottomRight)
+{
+    emit dataChanged(mapFromSource(topLeft), mapFromSource(bottomRight));
 }
