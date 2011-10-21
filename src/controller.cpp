@@ -14,7 +14,6 @@ Controller::Controller(QDeclarativeContext *context) :
     m_comicEntryListModel(new ComicEntryListModel),
     m_sortFilterModel(new SortFilterModel)
 {
-    m_sortFilterModel->setDynamicSortFilter(true);
     m_sortFilterModel->setSourceModel(m_comicEntryListModel);
     connect(m_comicEntryListModel, SIGNAL(countChanged()),
             m_sortFilterModel, SIGNAL(countChanged()), Qt::UniqueConnection);
