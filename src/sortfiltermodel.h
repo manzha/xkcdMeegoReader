@@ -19,6 +19,12 @@ public Q_SLOTS:
 
     bool favoritesFiltered() const;
 
+    void updateFavorite(int row, bool isFavorite);
+
+    void updateAltText(int row, const QString &altText);
+
+    void updateImageSource(int row, const QString &altText);
+
 signals:
     void countChanged();
 

@@ -29,6 +29,24 @@ bool SortFilterModel::favoritesFiltered() const
     return m_filteringFavorites;
 }
 
+void SortFilterModel::updateFavorite(int row, bool isFavorite)
+{
+    const QModelIndex proxyIndex = index(row, 0);
+    setData(proxyIndex, isFavorite, ComicEntryListModel::ComicEntryFavoriteRole);
+}
+
+void SortFilterModel::updateAltText(int row, const QString &altText)
+{
+    const QModelIndex proxyIndex = index(row, 0);
+    setData(proxyIndex, altText, ComicEntryListModel::ComicEntryAltTextRole);
+}
+
+void SortFilterModel::updateImageSource(int row, const QString &imageSource)
+{
+    const QModelIndex proxyIndex = index(row, 0);
+    setData(proxyIndex, imageSource, ComicEntryListModel::ComicEntryImageSourceRole);
+}
+
 bool SortFilterModel::filterAcceptsRow(int sourceRow,
                                        const QModelIndex &sourceParent) const
 {
