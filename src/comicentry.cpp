@@ -42,7 +42,7 @@ bool ComicEntry::isFavorite() const
     return m_favorite;
 }
 
-const QUrl ComicEntry::imageSource() const
+const QString ComicEntry::imageSource() const
 {
     return m_imageSource;
 }
@@ -57,7 +57,7 @@ void ComicEntry::setAltText(const QString &altText)
     m_altText = altText;
 }
 
-void ComicEntry::setImageSource(const QUrl &imageSource)
+void ComicEntry::setImageSource(const QString &imageSource)
 {
     m_imageSource = imageSource;
 }

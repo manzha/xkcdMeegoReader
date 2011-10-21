@@ -73,7 +73,7 @@ bool ComicEntryListModel::setData(const QModelIndex &index, const QVariant &valu
         entry->setFavorite(value.toBool());
         break;
     case ComicEntryImageSourceRole:
-        entry->setImageSource(value.toUrl());
+        entry->setImageSource(value.toString());
         break;
     default:
         return false;

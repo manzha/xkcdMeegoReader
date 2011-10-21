@@ -2,7 +2,6 @@
 #define COMICENTRY_H
 
 #include <QObject>
-#include <QUrl>
 #include <QDate>
 
 class ComicEntry : public QObject
@@ -15,7 +14,7 @@ class ComicEntry : public QObject
     Q_PROPERTY(int id READ id)
     Q_PROPERTY(bool favorite READ isFavorite WRITE setFavorite)
     Q_PROPERTY(QString altText READ altText WRITE setAltText)
-    Q_PROPERTY(QUrl imageSource READ imageSource WRITE setImageSource)
+    Q_PROPERTY(QString imageSource READ imageSource WRITE setImageSource)
 
 public:
     ComicEntry(const QString &name, const QString &date, const QString &id);
@@ -26,11 +25,11 @@ public:
     bool isFavorite() const;
     const QString altText() const;
     const QString month() const;
-    const QUrl imageSource() const;
+    const QString imageSource() const;
 
     void setFavorite(bool favorite);
     void setAltText(const QString &altText);
-    void setImageSource(const QUrl &imageSource);
+    void setImageSource(const QString &imageSource);
 
 private:
     QString m_name;
@@ -38,7 +37,7 @@ private:
     int m_id;
     bool m_favorite;
     QString m_altText;
-    QUrl m_imageSource;
+    QString m_imageSource;
 };
 
 #endif // COMICENTRY_H
