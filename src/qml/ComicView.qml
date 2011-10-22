@@ -17,6 +17,24 @@ Page {
             anchors.horizontalCenter: parent.horizontalCenter
             onClicked: window.moveToRandom()
         }
+        ToolIcon {
+            id: favoriteIcon
+            iconId: (currentEntry && currentEntry.isFavorite ?
+                         'toolbar-favorite-mark' :
+                         'toolbar-favorite-unmark')
+            onClicked: {
+                if (currentEntry) {
+                    // It seems that editing a model is not supported yet,
+                    // so we need to do it manually
+                    entriesModel.updateFavorite(currentIndex, !currentEntry.isFavorite)
+                }
+            }
+        }
+        ToolIcon {
+            id: shareIcon
+            iconId: 'toolbar-share'
+            onClicked: controller.share(currentEntry.title, XMCR.getUrl(currentEntry.entryId))
+        }
     }
 
     Rectangle {
@@ -26,13 +44,11 @@ Page {
 
     Header { id: topBar }
 
-    property int currentNum: -1
-    property int latestNumber: -1
     property bool showAlt: false
-    property bool showControls: false
     property bool isLoading: false
 
     property variant currentEntry
+    property int currentIndex: -1
 
     signal moveToPrevious()
     signal moveToNext()
@@ -54,6 +70,8 @@ Page {
 
     ZoomableImage {
         id: flickable
+        source: currentEntry ? currentEntry.imageSource : ''
+        visible: !isLoading
         anchors {
             top: topBar.bottom
             left: parent.left
@@ -77,8 +95,6 @@ Page {
         opacity: showAlt ? 0.85 : 0
         anchors.fill: flickable
 
-        property alias text: altTextBannerText.text
-
         Behavior on opacity {
             NumberAnimation { duration: 200 }
         }
@@ -91,6 +107,7 @@ Page {
             font.pixelSize: UIConstants.FONT_SLARGE
             wrapMode: Text.Wrap
             color: UIConstants.COLOR_FOREGROUND
+            text: currentEntry ? currentEntry.altText : ''
         }
     }
 
@@ -105,25 +122,26 @@ Page {
     function fetchContent(contentUrl) {
         isLoading = true
         topBar.clear()
-        flickable.source = ''
         showAlt = false
-        altTextBannerText.text = ''
-        asyncWorker.sendMessage({ url: contentUrl })
         topBar.setContent(currentEntry.title,
                           currentEntry.date,
                           currentEntry.entryId)
+        if (!currentEntry.altText || !currentEntry.imageSource) {
+            asyncWorker.sendMessage({ url: contentUrl })
+        }
     }
 
     function parseResponse(response) {
         if (response) {
             var stripEntry = JSON.parse(response)
-            flickable.source = stripEntry['img']
-            currentNum = parseInt(stripEntry['num'])
-            if (latestNumber < currentNum) latestNumber = currentNum
-            altTextBanner.text = stripEntry['alt']
-            topBar.setContent(stripEntry['title'],
-                              new Date(stripEntry['year'], stripEntry['month'] - 1, stripEntry['day']),
-                              currentNum)
+
+            if (!currentEntry.imageSource) {
+                entriesModel.updateImageSource(currentIndex, stripEntry['img'])
+            }
+
+            if (!currentEntry.altText) {
+                entriesModel.updateAltText(currentIndex, stripEntry['alt'])
+            }
         }
     }
 

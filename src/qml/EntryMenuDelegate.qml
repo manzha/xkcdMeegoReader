@@ -32,6 +32,8 @@ Item {
     property variant date
     property int entryId: 0
     property bool isFavorite: false
+    property string altText
+    property string imageSource
 
     width: parent.width
     height: ExtrasConstants.LIST_ITEM_HEIGHT

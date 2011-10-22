@@ -9,6 +9,13 @@ Page {
 
     property bool filterFavorites: false
 
+    function isActivePage(page) {
+        return tabGroup.currentTab.find(
+                    function(page) {
+                        return page == mainPage
+                        })
+    }
+
     onStatusChanged: {
         if (status == PageStatus.Active) {
             entriesModel.setFavoritesFiltered(filterFavorites)
@@ -25,30 +32,42 @@ Page {
     }
 
     function jumpToLast() {
-        list.positionViewAtEnd()
+        if (isActivePage(mainPage)) {
+            list.positionViewAtEnd()
+        }
     }
 
     function jumpToFirst() {
-        list.positionViewAtBeginning()
+        if (isActivePage(mainPage)) {
+            list.positionViewAtBeginning()
+        }
     }
 
     function showNext() {
-        if (list.currentIndex > 0) {
+        if (isActivePage(mainPage) &&
+                list.currentIndex > 0) {
             list.currentIndex --
             comicView.currentEntry = list.currentItem
+            comicView.currentIndex = list.currentIndex
         }
     }
 
     function showPrevious() {
-        if (list.currentIndex < list.model.count) {
+        if (isActivePage(mainPage) &&
+                list.currentIndex < list.model.count) {
             list.currentIndex ++
             comicView.currentEntry = list.currentItem
+            comicView.currentIndex = list.currentIndex
         }
     }
 
     function showRandom() {
-        list.currentIndex = XMCR.getRandomStripNumber(list.model.count + 1)
-        comicView.currentEntry = list.currentItem
+        if (isActivePage(mainPage)) {
+            list.currentIndex = XMCR.getRandomStripNumber(list.model.count + 1)
+            list.positionViewAtIndex(list.currentIndex, ListView.Beginning)
+            comicView.currentEntry = list.currentItem
+            comicView.currentIndex = list.currentIndex
+        }
     }
 
     Header {
@@ -101,6 +120,8 @@ Page {
             date: model.date
             entryId: model.entryId
             isFavorite: model.isFavorite
+            altText: model.altText
+            imageSource: model.imageSource
 
             onClicked:{
                 list.currentIndex = model.index
@@ -117,6 +138,7 @@ Page {
 
     function handleAction(currentItem) {
         comicView.currentEntry = currentItem
+        comicView.currentIndex = currentItem.index
         appWindow.pageStack.push(comicView)
     }
 }
