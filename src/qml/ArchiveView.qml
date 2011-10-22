@@ -68,7 +68,7 @@ Page {
 
     function showPrevious() {
         if (isActivePage(mainPage) &&
-                list.currentIndex < list.model.count) {
+                list.currentIndex < list.model.count - 1) {
             list.currentIndex ++
             comicView.currentEntry = list.currentItem
             comicView.currentIndex = list.currentIndex

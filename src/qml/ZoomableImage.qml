@@ -109,21 +109,22 @@ Flickable {
         }
 
         onPressed: {
-            startX = mouse.x
-            startY = mouse.y
+            startX = (mouse.x / image.scale)
+            startY = (mouse.y / image.scale)
         }
 
         onReleased: {
-            var deltax = mouse.x - startX
-            var deltay = mouse.y - startY
+            var deltaX = (mouse.x / image.scale) - startX
+            var deltaY = (mouse.y / image.scale) - startY
 
-            if (Math.abs(deltax) > 50 || Math.abs(deltay) > 50) {
-                if (deltax > 30 && Math.abs(deltay) < 30) {
-                    swipeDone = true
+            // Swipe is only allowed when we're not zoomed in
+            if (image.scale == pinchArea.minScale &&
+                    (Math.abs(deltaX) > 50 || Math.abs(deltaY) > 50)) {
+                swipeDone = true
+
+                if (deltaX > 30) {
                     flickable.swipeRight()
-                } else if (deltax < -30 && Math.abs(deltay) < 30) {
-                    swipeDone = true
-
+                } else if (deltaX < -30) {
                     flickable.swipeLeft()
                 }
             }
