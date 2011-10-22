@@ -12,6 +12,18 @@ ComicEntry::ComicEntry(const QString &name,
     m_date = QDate::fromString(date, "yyyy-M-d");
 }
 
+ComicEntry::ComicEntry(int id,
+                       const QString &name,
+                       const QDate &date) :
+    m_favorite(false),
+    m_altText(),
+    m_imageSource()
+{
+    m_name = name;
+    m_id = id;
+    m_date = date;
+}
+
 const QString ComicEntry::name() const
 {
     return m_name;

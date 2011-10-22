@@ -18,6 +18,7 @@ class ComicEntry : public QObject
 
 public:
     ComicEntry(const QString &name, const QString &date, const QString &id);
+    ComicEntry(int id, const QString &name, const QDate &date);
 
     const QString name() const;
     const QDate date() const;
