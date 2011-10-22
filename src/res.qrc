@@ -13,5 +13,6 @@
         <file>qml/ListSectionDelegate.qml</file>
         <file>qml/EntryMenuDelegate.qml</file>
         <file>qml/ArchiveView.qml</file>
+        <file>qml/RefreshHeader.qml</file>
     </qresource>
 </RCC>

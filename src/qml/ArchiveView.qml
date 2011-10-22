@@ -8,6 +8,10 @@ Page {
     id: mainPage
 
     property bool filterFavorites: false
+    property real contentYPos: list.visibleArea.yPosition *
+                               Math.max(list.height, list.contentHeight)
+    property bool showListHeader: false
+    property bool fetchingEntries: false
 
     function isActivePage(page) {
         return tabGroup.currentTab.find(
@@ -29,6 +33,16 @@ Page {
         comicView.moveToRandom.connect(showRandom)
         commonTools.jumpToFirstEntry.connect(jumpToFirst)
         commonTools.jumpToLastEntry.connect(jumpToLast)
+    }
+
+    Connections {
+        target: controller
+        onEntriesFetched: handleEntriesFetched(ok)
+    }
+
+    function handleEntriesFetched(ok) {
+        fetchingEntries = false
+        onLoadingFinished()
     }
 
     function jumpToLast() {
@@ -73,12 +87,6 @@ Page {
     Header {
         id: topBar
         title: 'Archive'
-        ToolIcon {
-            anchors.right: parent.right
-            anchors.verticalCenter: parent.verticalCenter
-            iconId: 'icon-m-toolbar-refresh'
-            onClicked: controller.fetchEntries()
-        }
     }
 
     TextField {
@@ -130,10 +138,47 @@ Page {
         }
         section.property: 'month'
         section.delegate: ListSectionDelegate { sectionName: section }
+        header: RefreshHeader {
+            id: refreshHeader
+            showHeader: showListHeader
+            loading: fetchingEntries
+            yPosition: contentYPos
+
+            onClicked: {
+                controller.fetchEntries()
+                fetchingEntries = true
+            }
+        }
+
+        Connections {
+            target: list.visibleArea
+            onYPositionChanged: {
+                if (contentYPos < 0 &&
+                        !showListHeader &&
+                        (list.moving && !list.flicking)) {
+                    showListHeader = true
+                    listTimer.start()
+                }
+            }
+        }
+
+        Timer {
+            id: listTimer
+            interval: 3000
+            onTriggered: {
+                if (!fetchingEntries) {
+                    onLoadingFinished()
+                }
+            }
+        }
     }
 
     ScrollDecorator {
         flickableItem: list
+    }
+
+    function onLoadingFinished() {
+        showListHeader = false
     }
 
     function handleAction(currentItem) {

@@ -37,7 +37,8 @@ OTHER_FILES += \
     qml/ComicView.qml \
     qml/ListSectionDelegate.qml \
     qml/EntryMenuDelegate.qml \
-    qml/ArchiveView.qml
+    qml/ArchiveView.qml \
+    qml/RefreshHeader.qml
 
 RESOURCES += \
     res.qrc
@@ -75,3 +76,4 @@ HEADERS += \
     comicentry.h \
     comicentrylistmodel.h \
     comicentryfetcher.h
+
