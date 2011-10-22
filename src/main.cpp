@@ -7,6 +7,10 @@
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QApplication *app = MDeclarativeCache::qApplication(argc, argv);
+    app->setApplicationName("XMCR");
+    app->setOrganizationDomain("com.simonpena");
+    app->setOrganizationName("simonpena");
+
     QDeclarativeView *view = MDeclarativeCache::qDeclarativeView();
     QDeclarativeContext *context = view->rootContext();
 
