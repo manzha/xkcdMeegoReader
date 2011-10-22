@@ -36,6 +36,8 @@ ComicEntryListModel::ComicEntryListModel(QObject *parent) :
 
 ComicEntryListModel::~ComicEntryListModel()
 {
+    qDeleteAll(m_comicEntries.begin(), m_comicEntries.end());
+    m_comicEntries.clear();
 }
 
 int ComicEntryListModel::rowCount(const QModelIndex &parent) const
@@ -136,16 +138,12 @@ void ComicEntryListModel::setComicEntries(QList<ComicEntry*> entries)
 
 void ComicEntryListModel::updateComicEntries(QList<ComicEntry *> entries)
 {
-    if (m_comicEntries.count() > 0) {
-        beginRemoveRows(QModelIndex(), 0, m_comicEntries.count() - 1);
-        qDeleteAll(m_comicEntries.begin(), m_comicEntries.end());
-        m_comicEntries.clear();
-        endRemoveRows();
-    }
-
-    if (entries.count() > 0) {
-        beginInsertRows(QModelIndex(), 0, entries.count() - 1);
-        m_comicEntries << entries;
+    int newEntries = entries.count() - m_comicEntries.count();
+    if (newEntries > 0) {
+        beginInsertRows(QModelIndex(), 0, newEntries - 1);
+        for (int i = newEntries - 1; i >= 0; i --) {
+            m_comicEntries.prepend(entries[i]);
+        }
         endInsertRows();
     }
 

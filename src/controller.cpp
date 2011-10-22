@@ -56,10 +56,12 @@ void Controller::share(QString title, QString url)
 
 void Controller::fetchEntries()
 {
+    m_sortFilterModel->setDynamicSortFilter(true);
     m_entriesFetcher->fetchEntries();
 }
 
 void Controller::onEntriesFetched(int count)
 {
     emit entriesFetched(count > 0);
+    m_sortFilterModel->setDynamicSortFilter(false);
 }
