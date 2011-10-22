@@ -13,7 +13,7 @@ Flickable {
     onHeightChanged: image.calculateSize()
 
     property alias source: image.source
-    signal imageReady()
+    property alias status: image.status
     signal swipeLeft()
     signal swipeRight()
 
@@ -50,7 +50,6 @@ Flickable {
 
             onStatusChanged: {
                 if (status == Image.Ready) {
-                    flickable.imageReady()
                     calculateSize();
                     playing = true
                 }

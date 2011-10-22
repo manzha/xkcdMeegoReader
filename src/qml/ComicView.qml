@@ -45,7 +45,7 @@ Page {
     Header { id: topBar }
 
     property bool showAlt: false
-    property bool isLoading: false
+    property bool isLoading: flickable.status == Image.Loading
 
     property variant currentEntry
     property int currentIndex: -1
@@ -57,8 +57,6 @@ Page {
     onStatusChanged: {
         if (status == PageStatus.Active && currentEntry) {
             fetchContent(XMCR.getUrl(currentEntry.entryId))
-        } else if (status == PageStatus.Inactive) {
-            flickable.source = ''
         }
     }
 
@@ -77,9 +75,6 @@ Page {
             left: parent.left
             right: parent.right
             bottom: parent.bottom
-        }
-        onImageReady: {
-            isLoading = false
         }
         onSwipeLeft: window.moveToPrevious()
         onSwipeRight: window.moveToNext()
@@ -120,7 +115,6 @@ Page {
     }
 
     function fetchContent(contentUrl) {
-        isLoading = true
         topBar.clear()
         showAlt = false
         topBar.setContent(currentEntry.title,
