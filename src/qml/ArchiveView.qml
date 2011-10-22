@@ -31,8 +31,8 @@ Page {
         comicView.moveToNext.connect(showNext)
         comicView.moveToPrevious.connect(showPrevious)
         comicView.moveToRandom.connect(showRandom)
-        commonTools.jumpToFirstEntry.connect(jumpToFirst)
-        commonTools.jumpToLastEntry.connect(jumpToLast)
+        tabbedTools.jumpToFirstEntry.connect(jumpToFirst)
+        tabbedTools.jumpToLastEntry.connect(jumpToLast)
     }
 
     Connections {

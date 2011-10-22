@@ -25,6 +25,14 @@ SOURCES += main.cpp \
     comicentry.cpp \
     comicentrylistmodel.cpp \
     comicentryfetcher.cpp
+
+HEADERS += \
+    sortfiltermodel.h \
+    controller.h \
+    comicentry.h \
+    comicentrylistmodel.h \
+    comicentryfetcher.h
+
 OTHER_FILES += \
     qml/main.qml \
     qml/workerscript.js \
@@ -33,12 +41,13 @@ OTHER_FILES += \
     qml/AboutView.qml \
     qml/ZoomableImage.qml \
     qml/HomeView.qml \
-    qml/CommonToolBar.qml \
     qml/ComicView.qml \
     qml/ListSectionDelegate.qml \
     qml/EntryMenuDelegate.qml \
     qml/ArchiveView.qml \
-    qml/RefreshHeader.qml
+    qml/RefreshHeader.qml \
+    qml/TabbedToolBar.qml \
+    qml/ComicToolBar.qml
 
 RESOURCES += \
     res.qrc
@@ -69,11 +78,3 @@ unix {
     splash.files += ../data/xmcr-splash-landscape.jpg
     splash.files += ../data/xmcr-splash-portrait.jpg
 }
-
-HEADERS += \
-    sortfiltermodel.h \
-    controller.h \
-    comicentry.h \
-    comicentrylistmodel.h \
-    comicentryfetcher.h
-

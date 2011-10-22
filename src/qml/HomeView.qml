@@ -2,7 +2,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 
 Page {
-    tools: commonTools
+    tools: tabbedTools
 
     TabGroup {
         id: tabGroup
@@ -17,7 +17,7 @@ Page {
         }
     }
 
-    CommonToolBar { id: commonTools }
+    TabbedToolBar { id: tabbedTools }
     ArchiveView { id: archiveView }
     ArchiveView { id: favoritesView }
 

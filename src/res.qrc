@@ -7,12 +7,13 @@
         <file>qml/workerscript.js</file>
         <file>qml/XMCR.js</file>
         <file>resources/xmcr.svg</file>
-        <file>qml/CommonToolBar.qml</file>
         <file>qml/HomeView.qml</file>
         <file>qml/ComicView.qml</file>
         <file>qml/ListSectionDelegate.qml</file>
         <file>qml/EntryMenuDelegate.qml</file>
         <file>qml/ArchiveView.qml</file>
         <file>qml/RefreshHeader.qml</file>
+        <file>qml/TabbedToolBar.qml</file>
+        <file>qml/ComicToolBar.qml</file>
     </qresource>
 </RCC>
