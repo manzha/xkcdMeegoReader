@@ -38,8 +38,20 @@ signals:
     void countChanged();
 
 private:
+    void createDatabase();
+
+    void updateComicEntries(QList<ComicEntry*> comicEntries);
+
+    void loadComicEntries();
+
+    void saveComicEntries();
+
+    bool updateEntry(ComicEntry *entry);
+
+private:
     Q_DISABLE_COPY(ComicEntryListModel)
     QList<ComicEntry*> m_comicEntries;
+    const QString m_dbFullPath;
 };
 
 #endif // COMICENTRYLISTMODEL_H
