@@ -173,6 +173,14 @@ Page {
         }
     }
 
+    BusyIndicator {
+        id: busyIndicator
+        visible: fetchingEntries && list.model.count === 0
+        running: visible
+        platformStyle: BusyIndicatorStyle { size: 'large' }
+        anchors.centerIn: parent
+    }
+
     ScrollDecorator {
         flickableItem: list
     }
