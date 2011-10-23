@@ -9,11 +9,23 @@ Page {
 
     tools: comicTools
 
-    ComicToolBar { id: comicTools }
+    ComicToolBar {
+        id: comicTools
+        activeItem: currentEntry
+        onToggleFavorite: {
+            if (activeItem) {
+                // It seems that editing a model is not supported yet,
+                // so we need to do it manually
+                entriesModel.updateFavorite(currentIndex, !currentEntry.isFavorite)
+            }
+        }
+        onGoToRandom: window.moveToRandom()
+        onShareContent: controller.share(currentEntry.title, XMCR.getUrl(currentEntry.entryId))
+    }
 
     Rectangle {
         anchors.fill: parent
-        color: 'darkgrey'
+        color: 'white'
     }
 
     Header { id: topBar }
@@ -30,13 +42,13 @@ Page {
 
     onStatusChanged: {
         if (status == PageStatus.Active && currentEntry) {
-            fetchContent(XMCR.getUrl(currentEntry.entryId))
+            fetchContent()
         }
     }
 
     onCurrentEntryChanged: {
         if (status == PageStatus.Active && currentEntry) {
-            fetchContent(XMCR.getUrl(currentEntry.entryId))
+            fetchContent()
         }
     }
 
@@ -88,14 +100,14 @@ Page {
         anchors.centerIn: parent
     }
 
-    function fetchContent(contentUrl) {
+    function fetchContent() {
         topBar.clear()
         showAlt = false
         topBar.setContent(currentEntry.title,
                           currentEntry.date,
                           currentEntry.entryId)
         if (!currentEntry.altText || !currentEntry.imageSource) {
-            asyncWorker.sendMessage({ url: contentUrl })
+            asyncWorker.sendMessage({ url: XMCR.getAPIUrl(currentEntry.entryId) })
         }
     }
 

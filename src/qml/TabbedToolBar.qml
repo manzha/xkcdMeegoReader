@@ -2,13 +2,7 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 
 ToolBarLayout {
-    signal jumpToFirstEntry()
-    signal jumpToLastEntry()
-
-    Component {
-        id: aboutView
-        AboutView { }
-    }
+    signal showMenu()
 
     ButtonRow {
         TabButton {
@@ -22,31 +16,8 @@ ToolBarLayout {
     }
 
     ToolIcon {
-        Menu {
-            id: mainMenu
-            MenuLayout {
-                MenuItem {
-                    id: aboutEntry
-                    text: 'About'
-                    onClicked: {
-                        appWindow.pageStack.push(aboutView)
-                    }
-                }
-                MenuItem {
-                    id: goToFirst
-                    text: 'Go to first'
-                    onClicked: jumpToFirstEntry()
-                }
-                MenuItem {
-                    id: goToLast
-                    text: 'Go to last'
-                    onClicked: jumpToLastEntry()
-                }
-            }
-        }
         iconId: 'icon-m-toolbar-view-menu'
         anchors.right: parent.right
-        onClicked: (mainMenu.status == DialogStatus.Closed) ?
-                       mainMenu.open() : mainMenu.close()
+        onClicked: showMenu()
     }
 }

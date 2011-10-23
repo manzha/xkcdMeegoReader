@@ -35,7 +35,7 @@ Item {
                     UIConstants.HEADER_DEFAULT_HEIGHT_PORTRAIT :
                     52
         // UIConstants.HEADER_DEFAULT_HEIGHT_LANDSCAPE doesn't seem to be used in the system
-        color: 'white'
+        color: 'darkgray'
     }
 
     Text {
@@ -60,7 +60,7 @@ Item {
         id: headerStripDateText
         font.family: UIConstants.FONT_FAMILY
         font.pixelSize: (appWindow.inPortrait ? UIConstants.FONT_LSMALL : UIConstants.FONT_SLARGE)
-        color: UIConstants.COLOR_SECONDARY_FOREGROUND
+        color: UIConstants.COLOR_FOREGROUND
         text: Qt.formatDate(stripDate)
         visible: stripDate !== undefined
     }
@@ -69,7 +69,7 @@ Item {
         id: headerStripNumberText
         font.family: UIConstants.FONT_FAMILY
         font.pixelSize: (appWindow.inPortrait ? UIConstants.FONT_LSMALL : UIConstants.FONT_SLARGE)
-        color: UIConstants.COLOR_SECONDARY_FOREGROUND
+        color: UIConstants.COLOR_FOREGROUND
         text: title ? '#' + stripNumber : ''
         visible: stripNumber !== -1
     }

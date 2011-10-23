@@ -1,13 +1,16 @@
 .pragma library
 
-var ZOOM_FIT_ALL = 0
-var ZOOM_ACTUAL_SIZE = 1
 var BASE_URL = 'http://xkcd.com/'
 var JSON_API = 'info.0.json'
 var URL = BASE_URL + JSON_API
+var REFRESH_TIMEOUT = 3000
+
+function getAPIUrl(num) {
+    return getUrl(num) + '/' + JSON_API
+}
 
 function getUrl(num) {
-    return BASE_URL + num + '/' + JSON_API
+    return BASE_URL + num
 }
 
 function getRandomStripNumber(latestNumber) {

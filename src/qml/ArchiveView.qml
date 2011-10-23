@@ -14,10 +14,7 @@ Page {
     property bool fetchingEntries: false
 
     function isActivePage(page) {
-        return tabGroup.currentTab.find(
-                    function(page) {
-                        return page == mainPage
-                        })
+        return (tabGroup.currentTab.currentPage == page)
     }
 
     onStatusChanged: {
@@ -31,8 +28,6 @@ Page {
         comicView.moveToNext.connect(showNext)
         comicView.moveToPrevious.connect(showPrevious)
         comicView.moveToRandom.connect(showRandom)
-        tabbedTools.jumpToFirstEntry.connect(jumpToFirst)
-        tabbedTools.jumpToLastEntry.connect(jumpToLast)
     }
 
     Connections {
@@ -46,15 +41,11 @@ Page {
     }
 
     function jumpToLast() {
-        if (isActivePage(mainPage)) {
-            list.positionViewAtEnd()
-        }
+        list.positionViewAtEnd()
     }
 
     function jumpToFirst() {
-        if (isActivePage(mainPage)) {
-            list.positionViewAtBeginning()
-        }
+        list.positionViewAtBeginning()
     }
 
     function showNext() {
@@ -82,6 +73,16 @@ Page {
             comicView.currentEntry = list.currentItem
             comicView.currentIndex = list.currentIndex
         }
+    }
+
+    function onLoadingFinished() {
+        showListHeader = false
+    }
+
+    function handleAction(currentItem) {
+        comicView.currentEntry = currentItem
+        comicView.currentIndex = currentItem.index
+        appWindow.pageStack.push(comicView)
     }
 
     Header {
@@ -164,7 +165,7 @@ Page {
 
         Timer {
             id: listTimer
-            interval: 3000
+            interval: XMCR.REFRESH_TIMEOUT
             onTriggered: {
                 if (!fetchingEntries) {
                     onLoadingFinished()
@@ -183,15 +184,5 @@ Page {
 
     ScrollDecorator {
         flickableItem: list
-    }
-
-    function onLoadingFinished() {
-        showListHeader = false
-    }
-
-    function handleAction(currentItem) {
-        comicView.currentEntry = currentItem
-        comicView.currentIndex = currentItem.index
-        appWindow.pageStack.push(comicView)
     }
 }
