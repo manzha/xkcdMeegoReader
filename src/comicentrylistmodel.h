@@ -32,9 +32,9 @@ public:
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
-    void setComicEntries(QList<ComicEntry*> comicEntries);
+    void setComicEntries(QList<ComicEntry> comicEntries);
 
-    const ComicEntry *get(const QModelIndex &index) const;
+    QVariantMap get(const QModelIndex &index) const;
 
 signals:
     void countChanged();
@@ -42,17 +42,17 @@ signals:
 private:
     void createDatabase();
 
-    void updateComicEntries(QList<ComicEntry*> comicEntries);
+    void updateComicEntries(QList<ComicEntry> comicEntries);
 
     void loadComicEntries();
 
     void saveComicEntries();
 
-    bool updateEntry(ComicEntry *entry);
+    bool updateEntry(const ComicEntry &entry);
 
 private:
     Q_DISABLE_COPY(ComicEntryListModel)
-    QList<ComicEntry*> m_comicEntries;
+    QList<ComicEntry> m_comicEntries;
     const QString m_dbFullPath;
 };
 

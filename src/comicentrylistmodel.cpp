@@ -36,8 +36,6 @@ ComicEntryListModel::ComicEntryListModel(QObject *parent) :
 
 ComicEntryListModel::~ComicEntryListModel()
 {
-    qDeleteAll(m_comicEntries.begin(), m_comicEntries.end());
-    m_comicEntries.clear();
 }
 
 int ComicEntryListModel::rowCount(const QModelIndex &parent) const
@@ -48,31 +46,27 @@ int ComicEntryListModel::rowCount(const QModelIndex &parent) const
 
 QVariant ComicEntryListModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid()) {
+    if (!index.isValid() || index.row() >= m_comicEntries.count()) {
         return QVariant();
     }
 
-    if (index.row() >= m_comicEntries.count()) {
-        return QVariant();
-    }
-
-    ComicEntry *entry = m_comicEntries.at(index.row());
+    const ComicEntry &entry = m_comicEntries.at(index.row());
 
     switch (role) {
     case ComicEntryNameRole:
-        return QVariant::fromValue(entry->name());
+        return QVariant::fromValue(entry.name());
     case ComicEntryDateRole:
-        return QVariant::fromValue(entry->date());
+        return QVariant::fromValue(entry.date());
     case ComicEntryAltTextRole:
-        return QVariant::fromValue(entry->altText());
+        return QVariant::fromValue(entry.altText());
     case ComicEntryFavoriteRole:
-        return QVariant::fromValue(entry->isFavorite());
+        return QVariant::fromValue(entry.isFavorite());
     case ComicEntryIdRole:
-        return QVariant::fromValue(entry->id());
+        return QVariant::fromValue(entry.id());
     case ComicEntryMonthRole:
-        return QVariant::fromValue(entry->month());
+        return QVariant::fromValue(entry.month());
     case ComicEntryImageSourceRole:
-        return QVariant::fromValue(entry->imageSource());
+        return QVariant::fromValue(entry.imageSource());
     default:
         return QVariant();
     }
@@ -84,17 +78,17 @@ bool ComicEntryListModel::setData(const QModelIndex &index, const QVariant &valu
         return false;
     }
 
-    ComicEntry *entry = m_comicEntries.at(index.row());
+    ComicEntry &entry = m_comicEntries[index.row()];
 
     switch (role) {
     case ComicEntryAltTextRole:
-        entry->setAltText(value.toString());
+        entry.setAltText(value.toString());
         break;
     case ComicEntryFavoriteRole:
-        entry->setFavorite(value.toBool());
+        entry.setFavorite(value.toBool());
         break;
     case ComicEntryImageSourceRole:
-        entry->setImageSource(value.toString());
+        entry.setImageSource(value.toString());
         break;
     default:
         return false;
@@ -104,7 +98,7 @@ bool ComicEntryListModel::setData(const QModelIndex &index, const QVariant &valu
     return updateEntry(entry);
 }
 
-bool ComicEntryListModel::updateEntry(ComicEntry *entry)
+bool ComicEntryListModel::updateEntry(const ComicEntry &entry)
 {
     QSqlDatabase::database().transaction();
     QSqlQuery updateQuery;
@@ -112,10 +106,10 @@ bool ComicEntryListModel::updateEntry(ComicEntry *entry)
                         "SET favorite=:favorite, altText=:altText, imageSource=:imageSource "
                         "WHERE entryId=:id");
 
-    updateQuery.bindValue(":id", entry->id());
-    updateQuery.bindValue(":favorite", entry->isFavorite());
-    updateQuery.bindValue(":altText", entry->altText());
-    updateQuery.bindValue(":imageSource", entry->imageSource());
+    updateQuery.bindValue(":id", entry.id());
+    updateQuery.bindValue(":favorite", entry.isFavorite());
+    updateQuery.bindValue(":altText", entry.altText());
+    updateQuery.bindValue(":imageSource", entry.imageSource());
     bool result = updateQuery.exec();
     QSqlDatabase::database().commit();
 
@@ -129,14 +123,14 @@ Qt::ItemFlags ComicEntryListModel::flags(const QModelIndex &index) const
     return Qt::ItemIsEditable & Qt::ItemIsEnabled & Qt::ItemIsSelectable;
 }
 
-void ComicEntryListModel::setComicEntries(QList<ComicEntry*> entries)
+void ComicEntryListModel::setComicEntries(QList<ComicEntry> entries)
 {
     updateComicEntries(entries);
 
     saveComicEntries();
 }
 
-void ComicEntryListModel::updateComicEntries(QList<ComicEntry *> entries)
+void ComicEntryListModel::updateComicEntries(QList<ComicEntry> entries)
 {
     int newEntries = entries.count() - m_comicEntries.count();
     if (newEntries > 0) {
@@ -179,14 +173,14 @@ void ComicEntryListModel::loadComicEntries()
                     "ORDER BY entryId DESC");
     query.exec();
 
-    QList<ComicEntry*> entries;
+    QList<ComicEntry> entries;
     while (query.next()) {
-        ComicEntry* entry = new ComicEntry(query.value(ID_INDEX).toInt(),
-                                           query.value(NAME_INDEX).toString(),
-                                           query.value(DATE_INDEX).toDate());
-        entry->setFavorite(query.value(FAVORITE_INDEX).toBool());
-        entry->setAltText(query.value(ALT_TEXT_INDEX).toString());
-        entry->setImageSource(query.value(IMAGE_SOURCE_INDEX).toString());
+        ComicEntry entry(query.value(ID_INDEX).toInt(),
+                         query.value(NAME_INDEX).toString(),
+                         query.value(DATE_INDEX).toDate());
+        entry.setFavorite(query.value(FAVORITE_INDEX).toBool());
+        entry.setAltText(query.value(ALT_TEXT_INDEX).toString());
+        entry.setImageSource(query.value(IMAGE_SOURCE_INDEX).toString());
 
         entries << entry;
     }
@@ -208,13 +202,13 @@ void ComicEntryListModel::saveComicEntries()
     QVariantList entryAltTexts;
     QVariantList entryImageSources;
 
-    Q_FOREACH (ComicEntry* entry, m_comicEntries) {
-        entryIds << entry->id();
-        entryNames << entry->name();
-        entryDates << entry->date();
-        entryFavorites << entry->isFavorite();
-        entryAltTexts << entry->altText();
-        entryImageSources << entry->imageSource();
+    Q_FOREACH (const ComicEntry &entry, m_comicEntries) {
+        entryIds << entry.id();
+        entryNames << entry.name();
+        entryDates << entry.date();
+        entryFavorites << entry.isFavorite();
+        entryAltTexts << entry.altText();
+        entryImageSources << entry.imageSource();
     }
 
     saveQuery.addBindValue(entryIds);
@@ -227,10 +221,16 @@ void ComicEntryListModel::saveComicEntries()
     QSqlDatabase::database().commit();
 }
 
-const ComicEntry *ComicEntryListModel::get(const QModelIndex &index) const
+QVariantMap ComicEntryListModel::get(const QModelIndex &index) const
 {
+    QVariantMap mappedEntry;
+
     if (!index.isValid() || index.row() >= m_comicEntries.count()) {
-        return 0;
+        return mappedEntry;
     }
-    return m_comicEntries.at(index.row());
+
+    const ComicEntry &comicEntry = m_comicEntries.at(index.row());
+
+    mappedEntry.insert("month", comicEntry.month());
+    return mappedEntry;
 }

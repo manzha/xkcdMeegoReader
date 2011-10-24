@@ -57,16 +57,16 @@ bool SortFilterModel::filterAcceptsRow(int sourceRow,
 
     const QModelIndex index = sourceModel()->index(sourceRow, 0);
     const QString name =
-            sourceModel()->data(index,
+            m_comicEntryModel->data(index,
                                 ComicEntryListModel::ComicEntryNameRole).toString();
     const QString month =
-            sourceModel()->data(index,
+            m_comicEntryModel->data(index,
                                 ComicEntryListModel::ComicEntryMonthRole).toString();
     const QString id =
-            sourceModel()->data(index,
+            m_comicEntryModel->data(index,
                                 ComicEntryListModel::ComicEntryIdRole).toString();
     bool isFavorite =
-            sourceModel()->data(index,
+            m_comicEntryModel->data(index,
                                 ComicEntryListModel::ComicEntryFavoriteRole).toBool();
 
     // We search on comic name, date and id
@@ -84,8 +84,5 @@ void SortFilterModel::onDataChanged(const QModelIndex &topLeft,
 QVariantMap SortFilterModel::get(int sourceRow) const
 {
     const QModelIndex index = m_comicEntryModel->index(sourceRow, 0);
-    const ComicEntry *entry = m_comicEntryModel->get(index);
-    QVariantMap mappedEntry;
-    mappedEntry.insert("month", entry->month());
-    return mappedEntry;
+    return m_comicEntryModel->get(index);
 }

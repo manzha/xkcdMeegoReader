@@ -1,21 +1,10 @@
 #ifndef COMICENTRY_H
 #define COMICENTRY_H
 
-#include <QObject>
 #include <QDate>
 
-class ComicEntry : public QObject
+class ComicEntry
 {
-    Q_OBJECT
-
-    Q_PROPERTY(QString name READ name)
-    Q_PROPERTY(QString month READ month)
-    Q_PROPERTY(QDate date READ date)
-    Q_PROPERTY(int id READ id)
-    Q_PROPERTY(bool favorite READ isFavorite WRITE setFavorite)
-    Q_PROPERTY(QString altText READ altText WRITE setAltText)
-    Q_PROPERTY(QString imageSource READ imageSource WRITE setImageSource)
-
 public:
     ComicEntry(const QString &name, const QString &date, const QString &id);
     ComicEntry(int id, const QString &name, const QDate &date);
