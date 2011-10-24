@@ -45,7 +45,7 @@ Item {
     property real headerHeight: (appWindow.inPortrait ?
                                      UIConstants.LIST_ITEM_HEIGHT_DEFAULT :
                                      UIConstants.LIST_ITEM_HEIGHT_SMALL)
-    property variant lastUpdate: new Date
+    property variant lastUpdate: controller.lastUpdateDate()
 
     BorderImage {
         id: background
@@ -106,6 +106,7 @@ Item {
         onClicked: {
             parent.clicked()
             lastUpdate = new Date
+            controller.setLastUpdateDate(lastUpdate)
         }
     }
 }

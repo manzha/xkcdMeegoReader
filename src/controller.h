@@ -2,6 +2,8 @@
 #define CONTROLLER_H
 
 #include <QObject>
+#include <QDateTime>
+#include <QSettings>
 
 class QDeclarativeContext;
 class ComicEntryFetcher;
@@ -24,6 +26,10 @@ public slots:
     //! Fetches comic entries
     void fetchEntries();
 
+    void setLastUpdateDate(const QDateTime &date);
+
+    const QDateTime lastUpdateDate() const;
+
 signals:
     //! Emitted when the comic entries have been fetched
     //! \param ok Tells whether the comic entries were successfully fetched
@@ -37,6 +43,8 @@ private:
     ComicEntryFetcher *m_entriesFetcher;
     ComicEntryListModel *m_comicEntryListModel;
     SortFilterModel *m_sortFilterModel;
+    QDateTime m_lastUpdateDate;
+    QSettings m_settings;
 };
 
 #endif // CONTROLLER_H
