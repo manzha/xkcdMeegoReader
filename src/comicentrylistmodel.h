@@ -34,6 +34,8 @@ public:
 
     void setComicEntries(QList<ComicEntry*> comicEntries);
 
+    const ComicEntry *get(const QModelIndex &index) const;
+
 signals:
     void countChanged();
 

@@ -3,6 +3,9 @@
 
 #include <QSortFilterProxyModel>
 
+class ComicEntry;
+class ComicEntryListModel;
+
 class SortFilterModel : public QSortFilterProxyModel
 {
     Q_OBJECT
@@ -25,6 +28,8 @@ public Q_SLOTS:
 
     void updateImageSource(int row, const QString &altText);
 
+    QVariantMap get(int sourceRow) const;
+
 signals:
     void countChanged();
 
@@ -36,6 +41,7 @@ private Q_SLOTS:
 
 private:
     bool m_filteringFavorites;
+    ComicEntryListModel *m_comicEntryModel;
 };
 
 #endif // SORTFILTERMODEL_H

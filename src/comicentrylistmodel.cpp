@@ -226,3 +226,11 @@ void ComicEntryListModel::saveComicEntries()
     saveQuery.execBatch();
     QSqlDatabase::database().commit();
 }
+
+const ComicEntry *ComicEntryListModel::get(const QModelIndex &index) const
+{
+    if (!index.isValid() || index.row() >= m_comicEntries.count()) {
+        return 0;
+    }
+    return m_comicEntries.at(index.row());
+}
