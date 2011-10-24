@@ -47,7 +47,10 @@ OTHER_FILES += \
     qml/ArchiveView.qml \
     qml/RefreshHeader.qml \
     qml/TabbedToolBar.qml \
-    qml/ComicToolBar.qml
+    qml/ComicToolBar.qml \
+    qml/FastScroll.qml \
+    qml/FastScrollStyle.qml \
+    qml/FastScroll.js
 
 RESOURCES += \
     res.qrc

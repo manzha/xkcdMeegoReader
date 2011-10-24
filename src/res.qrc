@@ -15,5 +15,8 @@
         <file>qml/RefreshHeader.qml</file>
         <file>qml/TabbedToolBar.qml</file>
         <file>qml/ComicToolBar.qml</file>
+        <file>qml/FastScroll.js</file>
+        <file>qml/FastScroll.qml</file>
+        <file>qml/FastScrollStyle.qml</file>
     </qresource>
 </RCC>

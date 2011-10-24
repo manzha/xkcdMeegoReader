@@ -182,7 +182,7 @@ Page {
         anchors.centerIn: parent
     }
 
-    ScrollDecorator {
-        flickableItem: list
+    FastScroll {
+        listView: list
     }
 }
