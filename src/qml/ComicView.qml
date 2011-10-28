@@ -104,7 +104,7 @@ Page {
         topBar.clear()
         showAlt = false
         topBar.setContent(currentEntry.title,
-                          currentEntry.date,
+                          currentEntry.formattedDate,
                           currentEntry.entryId)
         if (!currentEntry.altText || !currentEntry.imageSource) {
             asyncWorker.sendMessage({ url: XMCR.getAPIUrl(currentEntry.entryId) })

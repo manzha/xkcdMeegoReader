@@ -12,7 +12,7 @@ Item {
                                 UIConstants.HEADER_DEFAULT_TOP_SPACING_PORTRAIT :
                                 UIConstants.HEADER_DEFAULT_TOP_SPACING_LANDSCAPE)
     property string title: ''
-    property variant stripDate: undefined
+    property string stripDate: ''
     property int stripNumber: -1
     property bool isLoading
 
@@ -24,7 +24,7 @@ Item {
 
     function clear() {
         title = ''
-        stripDate = undefined
+        stripDate = ''
         stripNumber = -1
     }
 
@@ -61,7 +61,7 @@ Item {
         font.family: UIConstants.FONT_FAMILY
         font.pixelSize: (appWindow.inPortrait ? UIConstants.FONT_LSMALL : UIConstants.FONT_SLARGE)
         color: UIConstants.COLOR_FOREGROUND
-        text: Qt.formatDate(stripDate)
+        text: stripDate
         visible: stripDate !== undefined
     }
 

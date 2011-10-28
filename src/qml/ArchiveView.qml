@@ -126,7 +126,7 @@ Page {
         clip: true
         delegate: EntryMenuDelegate {
             title: model.title
-            date: model.date
+            formattedDate: model.formattedDate
             entryId: model.entryId
             isFavorite: model.isFavorite
             altText: model.altText

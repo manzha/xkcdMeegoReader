@@ -13,7 +13,7 @@ class ComicEntryListModel : public QAbstractListModel
 public:
     enum ComicEntryListRoles {
         ComicEntryNameRole = Qt::UserRole + 1,
-        ComicEntryDateRole,
+        ComicEntryFormattedDateRole,
         ComicEntryAltTextRole,
         ComicEntryFavoriteRole,
         ComicEntryIdRole,

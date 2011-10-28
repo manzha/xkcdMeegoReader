@@ -22,7 +22,7 @@ ComicEntryListModel::ComicEntryListModel(QObject *parent) :
 {
     QHash<int, QByteArray> roles;
     roles[ComicEntryNameRole] = "title";
-    roles[ComicEntryDateRole] = "date";
+    roles[ComicEntryFormattedDateRole] = "formattedDate";
     roles[ComicEntryAltTextRole] = "altText";
     roles[ComicEntryFavoriteRole] = "isFavorite";
     roles[ComicEntryIdRole] = "entryId";
@@ -55,8 +55,8 @@ QVariant ComicEntryListModel::data(const QModelIndex &index, int role) const
     switch (role) {
     case ComicEntryNameRole:
         return QVariant::fromValue(entry.name());
-    case ComicEntryDateRole:
-        return QVariant::fromValue(entry.date());
+    case ComicEntryFormattedDateRole:
+        return QVariant::fromValue(entry.formattedDate());
     case ComicEntryAltTextRole:
         return QVariant::fromValue(entry.altText());
     case ComicEntryFavoriteRole:

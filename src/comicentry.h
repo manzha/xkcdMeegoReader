@@ -11,6 +11,7 @@ public:
 
     const QString name() const;
     const QDate date() const;
+    const QString formattedDate() const;
     int id() const;
     bool isFavorite() const;
     const QString altText() const;
@@ -23,7 +24,9 @@ public:
 
 private:
     QString m_name;
+    QString m_month;
     QDate m_date;
+    QString m_formattedDate;
     int m_id;
     bool m_favorite;
     QString m_altText;

@@ -29,10 +29,10 @@ Item {
     signal clicked
 
     property alias title: entryTitleText.text
-    property variant date
     property int entryId: 0
     property bool isFavorite: false
     property string altText
+    property string formattedDate
     property string imageSource
 
     width: parent.width
@@ -81,7 +81,7 @@ Item {
                 color: (theme.inverted ?
                             ExtrasConstants.LIST_SUBTITLE_COLOR_INVERTED :
                             ExtrasConstants.LIST_SUBTITLE_COLOR)
-                text: Qt.formatDate(date)
+                text: formattedDate
             }
         }
 
