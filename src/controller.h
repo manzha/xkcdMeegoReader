@@ -1,6 +1,7 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
+#include "imagesaver.h"
 #include <QObject>
 #include <QDateTime>
 #include <QSettings>
@@ -17,7 +18,7 @@ public:
     explicit Controller(QDeclarativeContext *context);
     ~Controller();
 
-public slots:
+public Q_SLOTS:
     //! Shares content with the share-ui interface
     //! \param title The title of the content to be shared
     //! \param url The URL of the content to be shared
@@ -29,6 +30,10 @@ public slots:
     void setLastUpdateDate(const QDateTime &date);
 
     const QDateTime lastUpdateDate() const;
+
+    void saveImage(QObject *item, const QString &remoteSource);
+
+    const QString localSource(const QString &remoteSource) const;
 
 signals:
     //! Emitted when the comic entries have been fetched
@@ -45,6 +50,8 @@ private:
     SortFilterModel *m_sortFilterModel;
     QDateTime m_lastUpdateDate;
     QSettings m_settings;
+    ImageSaver m_imageSaver;
+    QString m_cachePath;
 };
 
 #endif // CONTROLLER_H

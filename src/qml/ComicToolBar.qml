@@ -3,6 +3,7 @@ import com.nokia.meego 1.0
 
 ToolBarLayout {
     property variant activeItem
+    property bool saveDisabled: true
     signal goToRandom()
     signal toggleFavorite()
     signal shareContent()
@@ -17,9 +18,11 @@ ToolBarLayout {
     }
     ToolIcon {
         id: favoriteIcon
+        enabled: !saveDisabled
         iconId: (activeItem && activeItem.isFavorite ?
-                     'toolbar-favorite-mark' :
-                     'toolbar-favorite-unmark')
+                     'icon-m-toolbar-favorite-mark' :
+                     'icon-m-toolbar-favorite-unmark') +
+                (saveDisabled ? '-dimmed' : '')
         onClicked: toggleFavorite()
     }
     ToolIcon {

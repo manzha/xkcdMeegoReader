@@ -12,11 +12,16 @@ Page {
     ComicToolBar {
         id: comicTools
         activeItem: currentEntry
+        saveDisabled: isLoading
         onToggleFavorite: {
             if (activeItem) {
                 // It seems that editing a model is not supported yet,
                 // so we need to do it manually
-                entriesModel.updateFavorite(currentIndex, !currentEntry.isFavorite)
+                var favorite = !currentEntry.isFavorite
+                entriesModel.updateFavorite(currentIndex, favorite)
+                if (favorite) {
+                    flickable.save()
+                }
             }
         }
         onGoToRandom: window.moveToRandom()
@@ -54,7 +59,7 @@ Page {
 
     ZoomableImage {
         id: flickable
-        source: currentEntry ? currentEntry.imageSource : ''
+        remoteSource: currentEntry ? currentEntry.imageSource : ''
         visible: !isLoading
         anchors {
             top: topBar.bottom

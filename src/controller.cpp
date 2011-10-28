@@ -4,6 +4,8 @@
 #include "sortfiltermodel.h"
 
 #include <QDeclarativeContext>
+#include <QDir>
+#include <QDesktopServices>
 #include <maemo-meegotouch-interfaces/shareuiinterface.h>
 #include <MDataUri>
 
@@ -16,7 +18,9 @@ Controller::Controller(QDeclarativeContext *context) :
     m_comicEntryListModel(new ComicEntryListModel),
     m_sortFilterModel(new SortFilterModel),
     m_lastUpdateDate(),
-    m_settings()
+    m_settings(),
+    m_imageSaver(),
+    m_cachePath(QDesktopServices::storageLocation(QDesktopServices::CacheLocation))
 {
     m_sortFilterModel->setSourceModel(m_comicEntryListModel);
     connect(m_comicEntryListModel, SIGNAL(countChanged()),
@@ -28,6 +32,10 @@ Controller::Controller(QDeclarativeContext *context) :
 
     m_lastUpdateDate = m_settings.value(LAST_UPDATE_KEY,
                                         QDateTime::currentDateTime()).toDateTime();
+    QDir dir;
+    if (!dir.exists(m_cachePath)) {
+        dir.mkpath(m_cachePath);
+    }
 
     m_declarativeContext->setContextProperty("controller", this);
     m_declarativeContext->setContextProperty("entriesModel", m_sortFilterModel);
@@ -76,6 +84,31 @@ void Controller::setLastUpdateDate(const QDateTime &date)
 const QDateTime Controller::lastUpdateDate() const
 {
     return m_lastUpdateDate;
+}
+
+void Controller::saveImage(QObject *item, const QString &remoteSource)
+{
+    QFileInfo imageUrl(remoteSource);
+    QUrl sourceUrl = QUrl::fromUserInput(m_cachePath +
+                                         QDir::separator() +
+                                         imageUrl.fileName());
+    m_imageSaver.save(item, sourceUrl.toLocalFile());
+}
+
+const QString Controller::localSource(const QString &remoteSource) const
+{
+    if (!remoteSource.isEmpty()) {
+        QFileInfo imageUrl(remoteSource);
+        QDir dir;
+
+        QUrl sourceUrl = QUrl::fromUserInput(m_cachePath +
+                                             QDir::separator() +
+                                             imageUrl.fileName());
+        if (dir.exists(sourceUrl.toLocalFile())) {
+            return sourceUrl.toString();
+        }
+    }
+    return QString();
 }
 
 void Controller::onEntriesFetched(int count)

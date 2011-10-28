@@ -15,8 +15,24 @@ Flickable {
     property alias source: image.source
     property alias status: image.status
     property alias progress: image.progress
+    property string remoteSource: ''
+    property string localSource: ''
     signal swipeLeft()
     signal swipeRight()
+
+    function save() {
+        controller.saveImage(image, remoteSource)
+    }
+
+    onRemoteSourceChanged: {
+        localSource = controller.localSource(remoteSource)
+        if (localSource) {
+            image.source = localSource
+            image.calculateSize()
+        } else {
+            image.source = remoteSource
+        }
+    }
 
     Item {
         id: imageContainer
@@ -53,6 +69,9 @@ Flickable {
                 if (status == Image.Ready) {
                     calculateSize();
                     playing = true
+                } else if (status == Image.Error &&
+                           image.source != remoteSource) {
+                    image.source = remoteSource
                 }
             }
         }

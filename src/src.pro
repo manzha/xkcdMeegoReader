@@ -24,14 +24,16 @@ SOURCES += main.cpp \
     controller.cpp \
     comicentry.cpp \
     comicentrylistmodel.cpp \
-    comicentryfetcher.cpp
+    comicentryfetcher.cpp \
+    imagesaver.cpp
 
 HEADERS += \
     sortfiltermodel.h \
     controller.h \
     comicentry.h \
     comicentrylistmodel.h \
-    comicentryfetcher.h
+    comicentryfetcher.h \
+    imagesaver.h
 
 OTHER_FILES += \
     qml/main.qml \
