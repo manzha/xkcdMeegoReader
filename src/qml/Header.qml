@@ -8,9 +8,7 @@ Item {
     height: headerRectangle.height
     width: parent.width
 
-    property int topMargin: (appWindow.inPortrait ?
-                                UIConstants.HEADER_DEFAULT_TOP_SPACING_PORTRAIT :
-                                UIConstants.HEADER_DEFAULT_TOP_SPACING_LANDSCAPE)
+    property int topMargin: UIConstants.HEADER_DEFAULT_TOP_SPACING_LANDSCAPE
     property string title: ''
     property string stripDate: ''
     property int stripNumber: -1
