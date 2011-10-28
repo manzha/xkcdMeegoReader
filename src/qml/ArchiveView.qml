@@ -160,9 +160,9 @@ Page {
         Connections {
             target: list.visibleArea
             onYPositionChanged: {
-                if (contentYPos < 0 &&
-                        !showListHeader &&
-                        (list.moving && !list.flicking)) {
+                if ((!list.flicking && list.moving) &&
+                        contentYPos < 0 &&
+                        !showListHeader) {
                     showListHeader = true
                     listTimer.start()
                 }
