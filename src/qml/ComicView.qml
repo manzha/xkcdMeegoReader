@@ -92,12 +92,14 @@ Page {
         }
     }
 
-    BusyIndicator {
+    ProgressBar {
         id: busyIndicator
-        visible: isLoading
-        running: visible
-        platformStyle: BusyIndicatorStyle { size: 'large' }
         anchors.centerIn: parent
+        width: parent.width / 2
+        minimumValue: 0
+        maximumValue: 1
+        value: flickable.progress
+        visible: isLoading
     }
 
     function fetchContent() {

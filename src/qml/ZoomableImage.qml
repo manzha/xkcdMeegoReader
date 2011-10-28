@@ -14,6 +14,7 @@ Flickable {
 
     property alias source: image.source
     property alias status: image.status
+    property alias progress: image.progress
     signal swipeLeft()
     signal swipeRight()
 
