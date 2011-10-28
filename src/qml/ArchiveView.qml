@@ -97,9 +97,7 @@ Page {
         placeholderText: 'Search'
         inputMethodHints: Qt.ImhNoPredictiveText
 
-        onTextChanged: {
-           entriesModel.setFilterWildcard(text)
-        }
+        onTextChanged: filterTimer.start()
 
         Image {
             id: clearText
@@ -116,6 +114,14 @@ Page {
                 inputContext.reset()
                 filterEntries.text = ''
             }
+        }
+
+        Timer {
+            id: filterTimer
+            interval: 50
+            running: false
+            repeat:  false
+            onTriggered: entriesModel.setFilterWildcard(filterEntries.text)
         }
     }
 
