@@ -1,0 +1,10 @@
+#! /bin/sh
+
+set -e
+
+if [ "$1" = purge ] ; then
+  # Delete configuration, cache and archive database
+  rm -rf /home/user/.config/simonpena/XMCR.conf \
+     /home/user/.local/share/data/simonpena/XMCR \
+     /home/user/.cache/simonpena/XMCR/ 2> /dev/null || true
+fi
