@@ -1,3 +1,16 @@
+xmcr (0.3.0) unstable; urgency=low
+
+  * Added archive support: the list of comics is kept offline for improved
+    navigation
+  * Added favorites support: favorites are kept offline
+  * Added share support using the system accounts
+  * Added swipe support to move around in the Comic View
+  * Added l10n support and Spanish, English, German, French and Portuguese
+    translations
+  * Added a progress bar to display loading progress for images
+
+ -- Simon Pena <spena@igalia.com>  Sat, 29 Oct 2011 20:50:22 +0300
+
 xmcr (0.2.1) unstable; urgency=low
 
   * Fixed: issue #1 - Animated images aren't supported
