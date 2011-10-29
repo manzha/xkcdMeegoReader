@@ -8,6 +8,9 @@ XMCR displays content from XKCD http://xkcd.com
 
 XMCR icon has been created by Adrian Perez.
 
+The XKCD logo used in the splash screen has been created by euphonicnight, and is
+available at http://userlogos.org/node/5127
+
 The ZoomableImage has zoom support by double-click and pinch gesture thanks
 to QuickFlickr's ZoomableImage [1]. QuickFlickr [2] is written by Marko Mattila,
 and licensed under the GPL v2 or v3 licenses.
