@@ -18,5 +18,6 @@
         <file>qml/FastScroll.js</file>
         <file>qml/FastScroll.qml</file>
         <file>qml/FastScrollStyle.qml</file>
+        <file>qml/FavoritesView.qml</file>
     </qresource>
 </RCC>

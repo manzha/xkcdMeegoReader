@@ -27,12 +27,12 @@ Page {
             }
             MenuItem {
                 id: goToFirst
-                text: 'Go to first'
+                text: 'Jump to newest'
                 onClicked: tabGroup.currentTab.currentPage.jumpToFirst()
             }
             MenuItem {
                 id: goToLast
-                text: 'Go to last'
+                text: 'Jump to oldest'
                 onClicked: tabGroup.currentTab.currentPage.jumpToLast()
             }
         }
@@ -43,11 +43,11 @@ Page {
                         mainMenu.open() : mainMenu.close()
     }
     ArchiveView { id: archiveView }
-    ArchiveView { id: favoritesView }
+    FavoritesView { id: favoritesView }
     Component { id: aboutView; AboutView { } }
 
     Component.onCompleted: {
-        archiveTab.push(archiveView, { filterFavorites: false })
-        favoritesTab.push(favoritesView, { filterFavorites: true })
+        archiveTab.push(archiveView)
+        favoritesTab.push(favoritesView)
     }
 }

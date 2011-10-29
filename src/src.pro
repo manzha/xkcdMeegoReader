@@ -52,7 +52,8 @@ OTHER_FILES += \
     qml/ComicToolBar.qml \
     qml/FastScroll.qml \
     qml/FastScrollStyle.qml \
-    qml/FastScroll.js
+    qml/FastScroll.js \
+    qml/FavoritesView.qml
 
 RESOURCES += \
     res.qrc

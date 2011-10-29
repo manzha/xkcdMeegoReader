@@ -7,23 +7,11 @@ import "XMCR.js" as XMCR
 Page {
     id: mainPage
 
-    property real contentYPos: list.visibleArea.yPosition *
-                               Math.max(list.height, list.contentHeight)
-    property bool showListHeader: false
-    property bool fetchingEntries: false
-
-    function isActivePage(page) {
-        return (tabGroup.currentTab.currentPage == page)
-    }
-
     onStatusChanged: {
         if (status == PageStatus.Active) {
-            entriesModel.setFavoritesFiltered(false)
+            entriesModel.setFavoritesFiltered(true)
             entriesModel.setFilterWildcard(filterEntries.text)
-            if (!filterEntries.text && list.model.count === 0) {
-                controller.fetchEntries()
-                fetchingEntries = true
-            }
+            favoritesEmpty.visible = list.model.count === 0
         }
     }
 
@@ -31,16 +19,6 @@ Page {
         comicView.moveToNext.connect(showNext)
         comicView.moveToPrevious.connect(showPrevious)
         comicView.moveToRandom.connect(showRandom)
-    }
-
-    Connections {
-        target: controller
-        onEntriesFetched: handleEntriesFetched(ok)
-    }
-
-    function handleEntriesFetched(ok) {
-        fetchingEntries = false
-        onLoadingFinished()
     }
 
     function jumpToLast() {
@@ -84,10 +62,6 @@ Page {
         }
     }
 
-    function onLoadingFinished() {
-        showListHeader = false
-    }
-
     function handleAction(currentItem) {
         comicView.currentEntry = currentItem
         comicView.currentIndex = currentItem.index
@@ -96,13 +70,17 @@ Page {
 
     Header {
         id: topBar
-        title: 'Archive'
+        title: 'Favorites'
     }
 
     TextField {
         id: filterEntries
         anchors { top: topBar.bottom; left: parent.left; right: parent.right }
-        anchors { topMargin: UIConstants.DEFAULT_MARGIN; leftMargin: UIConstants.DEFAULT_MARGIN; rightMargin: UIConstants.DEFAULT_MARGIN }
+        anchors {
+            topMargin: UIConstants.DEFAULT_MARGIN
+            leftMargin: UIConstants.DEFAULT_MARGIN
+            rightMargin: UIConstants.DEFAULT_MARGIN
+        }
         placeholderText: 'Search'
         inputMethodHints: Qt.ImhNoPredictiveText
 
@@ -136,7 +114,12 @@ Page {
 
     ListView {
         id: list
-        anchors { top: filterEntries.bottom; left: parent.left; right: parent.right; bottom: parent.bottom }
+        anchors {
+            top: filterEntries.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
         model: entriesModel
         clip: true
         delegate: EntryMenuDelegate {
@@ -154,50 +137,28 @@ Page {
         }
         section.property: 'month'
         section.delegate: ListSectionDelegate { sectionName: section }
-        header: RefreshHeader {
-            id: refreshHeader
-            showHeader: showListHeader
-            loading: fetchingEntries
-            yPosition: contentYPos
+    }
 
-            onClicked: {
-                controller.fetchEntries()
-                fetchingEntries = true
-            }
-        }
+    Item {
+        id: favoritesEmpty
+        anchors.left: list.left
+        anchors.right: list.right
+        anchors.verticalCenter: list.verticalCenter
+        anchors.margins: UIConstants.DEFAULT_MARGIN
 
-        Connections {
-            target: list.visibleArea
-            onYPositionChanged: {
-                if ((!list.flicking && list.moving) &&
-                        contentYPos < 0 &&
-                        !showListHeader) {
-                    showListHeader = true
-                    listTimer.start()
-                }
-            }
-        }
-
-        Timer {
-            id: listTimer
-            interval: XMCR.REFRESH_TIMEOUT
-            onTriggered: {
-                if (!fetchingEntries) {
-                    onLoadingFinished()
-                }
-            }
+        Text {
+            font.pixelSize: UIConstants.FONT_XLARGE
+            font.family: UIConstants.FONT_FAMILY
+            color: UIConstants.COLOR_FOREGROUND
+            width: parent.width
+            anchors.verticalCenter: parent.verticalCenter
+            opacity: 0.5
+            wrapMode: Text.Wrap
+            text: 'Your favorited entries will appear here'
         }
     }
 
-    BusyIndicator {
-        id: busyIndicator
-        visible: fetchingEntries && list.model.count === 0
-        running: visible
-        platformStyle: BusyIndicatorStyle { size: 'large' }
-        anchors.centerIn: parent
-    }
-
-    FastScroll {
-        listView: list
+    ScrollDecorator {
+        flickableItem: list
     }
 }
