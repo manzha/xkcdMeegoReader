@@ -49,7 +49,7 @@ Page {
 
             Text {
                 id: aboutVersion
-                text: 'XMCR 0.2'
+                text: 'XMCR 0.3'
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.family: UIConstants.FONT_FAMILY
                 font.pixelSize: UIConstants.FONT_XLARGE
