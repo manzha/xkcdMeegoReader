@@ -3,6 +3,9 @@
 #include <QDeclarativeView>
 #include <MDeclarativeCache>
 #include <QDeclarativeContext>
+#include <QTranslator>
+#include <QTextCodec>
+#include <QLocale>
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -10,6 +13,16 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     app->setApplicationName("XMCR");
     app->setOrganizationDomain("com.simonpena");
     app->setOrganizationName("simonpena");
+
+    // Assume that strings in source files are UTF-8
+    QTextCodec::setCodecForTr(QTextCodec::codecForName("utf8"));
+
+    QString locale(QLocale::system().name());
+    QTranslator translator;
+
+    if (translator.load("l10n/xmcr." + locale, ":/")) {
+        app->installTranslator(&translator);
+    }
 
     QDeclarativeView *view = MDeclarativeCache::qDeclarativeView();
     QDeclarativeContext *context = view->rootContext();
