@@ -86,7 +86,7 @@ Item {
             font.pixelSize: UIConstants.FONT_LARGE
             font.family: "Nokia Pure Text Light"
             color: UIConstants.COLOR_BUTTON_DISABLED_FOREGROUND
-            text: loading ? 'Updating' : 'Tap to update'
+            text: loading ? qsTr('Updating') : qsTr('Tap to update')
         }
 
         Text {
@@ -96,7 +96,7 @@ Item {
             color: UIConstants.COLOR_BUTTON_DISABLED_FOREGROUND
             // TODO: figure out how to provide translatable date while
             // keeping the binding
-            text: 'Last update: ' + Qt.formatDateTime(lastUpdate)
+            text: qsTr('Last update: ') + Qt.formatDateTime(lastUpdate)
         }
     }
 

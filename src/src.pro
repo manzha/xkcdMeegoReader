@@ -58,6 +58,14 @@ OTHER_FILES += \
 RESOURCES += \
     res.qrc
 
+CODECFORTR = UTF-8
+TRANSLATIONS += \
+    l10n/xmcr.en.ts \
+    l10n/xmcr.es.ts \
+    l10n/xmcr.fr.ts \
+    l10n/xmcr.pt.ts \
+    l10n/xmcr.de.ts
+
 unix {
     #VARIABLES
     isEmpty(PREFIX) {
