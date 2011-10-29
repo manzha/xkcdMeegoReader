@@ -96,14 +96,14 @@ Page {
 
     Header {
         id: topBar
-        title: 'Archive'
+        title: qsTr('Archive')
     }
 
     TextField {
         id: filterEntries
         anchors { top: topBar.bottom; left: parent.left; right: parent.right }
         anchors { topMargin: UIConstants.DEFAULT_MARGIN; leftMargin: UIConstants.DEFAULT_MARGIN; rightMargin: UIConstants.DEFAULT_MARGIN }
-        placeholderText: 'Search'
+        placeholderText: qsTr('Search')
         inputMethodHints: Qt.ImhNoPredictiveText
 
         onTextChanged: filterTimer.start()

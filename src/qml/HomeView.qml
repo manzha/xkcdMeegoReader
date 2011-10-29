@@ -22,17 +22,17 @@ Page {
         MenuLayout {
             MenuItem {
                 id: aboutEntry
-                text: 'About'
+                text: qsTr('About')
                 onClicked: appWindow.pageStack.push(aboutView)
             }
             MenuItem {
                 id: goToFirst
-                text: 'Jump to newest'
+                text: qsTr('Jump to newest')
                 onClicked: tabGroup.currentTab.currentPage.jumpToFirst()
             }
             MenuItem {
                 id: goToLast
-                text: 'Jump to oldest'
+                text: qsTr('Jump to oldest')
                 onClicked: tabGroup.currentTab.currentPage.jumpToLast()
             }
         }

@@ -91,7 +91,8 @@ Page {
                            UIConstants.COLOR_INVERTED_FOREGROUND
                 width: parent.width
                 wrapMode: Text.WordWrap
-                text: 'This application displays content from <a href="http://xkcd.com/">XKCD</a> but is not endorsed nor certified by XKCD.'
+                text: qsTr('This application displays content from <a href="http://xkcd.com/">XKCD</a> '+
+                           'but is not endorsed nor certified by XKCD.')
                 onLinkActivated: Qt.openUrlExternally(link)
             }
 

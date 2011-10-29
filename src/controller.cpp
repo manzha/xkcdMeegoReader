@@ -57,7 +57,7 @@ void Controller::share(QString title, QString url)
     dataUri.setTextData(url);
     dataUri.setAttribute("title", title);
     //: Shared with #XMCR
-    dataUri.setAttribute("description", "Shared with #XMCR");
+    dataUri.setAttribute("description", tr("Shared with #XMCR"));
 
     QStringList items;
     items << dataUri.toString();

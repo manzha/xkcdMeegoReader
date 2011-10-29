@@ -70,7 +70,7 @@ Page {
 
     Header {
         id: topBar
-        title: 'Favorites'
+        title: qsTr('Favorites')
     }
 
     TextField {
@@ -81,7 +81,7 @@ Page {
             leftMargin: UIConstants.DEFAULT_MARGIN
             rightMargin: UIConstants.DEFAULT_MARGIN
         }
-        placeholderText: 'Search'
+        placeholderText: qsTr('Search')
         inputMethodHints: Qt.ImhNoPredictiveText
 
         onTextChanged: filterTimer.start()
@@ -154,7 +154,7 @@ Page {
             anchors.verticalCenter: parent.verticalCenter
             opacity: 0.5
             wrapMode: Text.Wrap
-            text: 'Your favorited entries will appear here'
+            text: qsTr('Your favorited entries will appear here')
         }
     }
 
