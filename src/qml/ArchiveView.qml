@@ -11,6 +11,7 @@ Page {
                                Math.max(list.height, list.contentHeight)
     property bool showListHeader: false
     property bool fetchingEntries: false
+    property variant archiveLastUpdate: controller.lastUpdateDate()
 
     function isActivePage(page) {
         return (tabGroup.currentTab.currentPage == page)
@@ -41,6 +42,7 @@ Page {
     function handleEntriesFetched(ok) {
         fetchingEntries = false
         onLoadingFinished()
+        archiveLastUpdate = controller.lastUpdateDate()
     }
 
     function jumpToLast() {
@@ -159,6 +161,7 @@ Page {
             showHeader: showListHeader
             loading: fetchingEntries
             yPosition: contentYPos
+            lastUpdate: archiveLastUpdate
 
             onClicked: {
                 controller.fetchEntries()

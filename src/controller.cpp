@@ -75,12 +75,6 @@ void Controller::fetchEntries()
     m_entriesFetcher->fetchEntries();
 }
 
-void Controller::setLastUpdateDate(const QDateTime &date)
-{
-    m_lastUpdateDate = date;
-    m_settings.setValue(LAST_UPDATE_KEY, m_lastUpdateDate);
-}
-
 const QDateTime Controller::lastUpdateDate() const
 {
     return m_lastUpdateDate;
@@ -115,4 +109,6 @@ void Controller::onEntriesFetched(int count)
 {
     emit entriesFetched(count > 0);
     m_sortFilterModel->setDynamicSortFilter(false);
+    m_lastUpdateDate = QDateTime::currentDateTime();
+    m_settings.setValue(LAST_UPDATE_KEY, m_lastUpdateDate);
 }

@@ -27,8 +27,6 @@ public Q_SLOTS:
     //! Fetches comic entries
     void fetchEntries();
 
-    void setLastUpdateDate(const QDateTime &date);
-
     const QDateTime lastUpdateDate() const;
 
     void saveImage(QObject *item, const QString &remoteSource);
