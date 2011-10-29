@@ -49,18 +49,24 @@ Page {
     }
 
     function showNext() {
-        if (isActivePage(mainPage) &&
-                list.currentIndex > 0) {
-            list.currentIndex --
+        if (isActivePage(mainPage)) {
+            if (list.currentIndex > 0) {
+                list.currentIndex --
+            } else {
+                list.currentIndex = list.model.count - 1
+            }
             comicView.currentEntry = list.currentItem
             comicView.currentIndex = list.currentIndex
         }
     }
 
     function showPrevious() {
-        if (isActivePage(mainPage) &&
-                list.currentIndex < list.model.count - 1) {
-            list.currentIndex ++
+        if (isActivePage(mainPage)) {
+            if (list.currentIndex < list.model.count - 1) {
+                list.currentIndex ++
+            } else {
+                list.currentIndex = 0
+            }
             comicView.currentEntry = list.currentItem
             comicView.currentIndex = list.currentIndex
         }
