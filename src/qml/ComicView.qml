@@ -36,7 +36,8 @@ Page {
     Header { id: topBar }
 
     property bool showAlt: false
-    property bool isLoading: flickable.status == Image.Loading
+    property bool isLoading: flickable.status == Image.Loading ||
+                             (currentEntry && !currentEntry.imageSource)
 
     property variant currentEntry
     property int currentIndex: -1
@@ -105,6 +106,7 @@ Page {
         maximumValue: 1
         value: flickable.progress
         visible: isLoading
+        indeterminate: (currentEntry && !currentEntry.imageSource)
     }
 
     function fetchContent() {
