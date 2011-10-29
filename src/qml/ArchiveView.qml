@@ -68,7 +68,7 @@ Page {
 
     function showRandom() {
         if (isActivePage(mainPage)) {
-            list.currentIndex = XMCR.getRandomStripNumber(list.model.count + 1)
+            list.currentIndex = XMCR.getRandomStripNumber(list.model.count)
             list.positionViewAtIndex(list.currentIndex, ListView.Beginning)
             comicView.currentEntry = list.currentItem
             comicView.currentIndex = list.currentIndex

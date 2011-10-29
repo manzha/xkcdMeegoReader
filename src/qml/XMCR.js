@@ -14,5 +14,5 @@ function getUrl(num) {
 }
 
 function getRandomStripNumber(latestNumber) {
-    return Math.ceil(Math.random() * latestNumber) + 1
+    return Math.floor(Math.random() * latestNumber)
 }
