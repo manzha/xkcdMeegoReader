@@ -5,7 +5,7 @@ import "file:///usr/lib/qt4/imports/com/meego/UIConstants.js" as UIConstants
 import "XMCR.js" as XMCR
 
 Page {
-    id: mainPage
+    id: archivePage
 
     property real contentYPos: list.visibleArea.yPosition *
                                Math.max(list.height, list.contentHeight)
@@ -54,7 +54,7 @@ Page {
     }
 
     function showNext() {
-        if (isActivePage(mainPage)) {
+        if (isActivePage(archivePage)) {
             if (list.currentIndex > 0) {
                 list.currentIndex --
             } else {
@@ -66,7 +66,7 @@ Page {
     }
 
     function showPrevious() {
-        if (isActivePage(mainPage)) {
+        if (isActivePage(archivePage)) {
             if (list.currentIndex < list.model.count - 1) {
                 list.currentIndex ++
             } else {
@@ -78,7 +78,7 @@ Page {
     }
 
     function showRandom() {
-        if (isActivePage(mainPage)) {
+        if (isActivePage(archivePage)) {
             list.currentIndex = XMCR.getRandomStripNumber(list.model.count)
             list.positionViewAtIndex(list.currentIndex, ListView.Beginning)
             comicView.currentEntry = list.currentItem
