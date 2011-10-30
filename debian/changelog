@@ -1,3 +1,9 @@
+xmcr (0.3.1) unstable; urgency=low
+
+  * Fix navigation in the Favorites View
+
+ -- Simon Pena <spena@igalia.com>  Sun, 30 Oct 2011 22:45:17 +0200
+
 xmcr (0.3.0) unstable; urgency=low
 
   * Added archive support: the list of comics is kept offline for improved
