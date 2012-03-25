@@ -4,65 +4,87 @@
 <context>
     <name>AboutView</name>
     <message>
-        <location filename="../qml/AboutView.qml" line="94"/>
+        <location filename="../qml/AboutView.qml" line="49"/>
+        <source>Recommend this app</source>
+        <translation>Recomienda esta aplicación</translation>
+    </message>
+    <message>
+        <location filename="../qml/AboutView.qml" line="50"/>
+        <source>Tell us what you think</source>
+        <translation>Cuéntanos tu opinión</translation>
+    </message>
+    <message>
+        <location filename="../qml/AboutView.qml" line="51"/>
+        <source>Rate us in the Nokia Store</source>
+        <translation>Valóranos en la Nokia Store</translation>
+    </message>
+    <message>
+        <location filename="../qml/AboutView.qml" line="52"/>
+        <source>Follow us on Twitter</source>
+        <translation>Síguenos en Twitter</translation>
+    </message>
+    <message>
+        <location filename="../qml/AboutView.qml" line="53"/>
+        <source>Check our other apps</source>
+        <translation>Otras de nuestras aplicaciones</translation>
+    </message>
+    <message>
+        <location filename="../qml/AboutView.qml" line="204"/>
         <source>This application displays content from &lt;a href=&quot;http://xkcd.com/&quot;&gt;XKCD&lt;/a&gt; but is not endorsed nor certified by XKCD.</source>
         <translation>Esta aplicación muestra contenido de &lt;a href=&quot;http://xkcd.com/&quot;&gt;XKCD&lt;/a&gt;, pero no está avalado ni certificado por XKCD.</translation>
+    </message>
+    <message>
+        <location filename="../qml/AboutView.qml" line="218"/>
+        <source>Licence</source>
+        <translation>Licencia</translation>
     </message>
 </context>
 <context>
     <name>ArchiveView</name>
     <message>
-        <location filename="../qml/ArchiveView.qml" line="99"/>
+        <location filename="../qml/ArchiveView.qml" line="125"/>
         <source>Archive</source>
         <translation>Archivo</translation>
     </message>
     <message>
-        <location filename="../qml/ArchiveView.qml" line="106"/>
+        <location filename="../qml/ArchiveView.qml" line="125"/>
+        <source>Favorites</source>
+        <translation>Favoritos</translation>
+    </message>
+    <message>
+        <location filename="../qml/ArchiveView.qml" line="138"/>
         <source>Search</source>
         <translation>Buscar</translation>
+    </message>
+    <message>
+        <location filename="../qml/ArchiveView.qml" line="248"/>
+        <source>Your favorited entries will appear here</source>
+        <translation>Tus entradas favoritas aparecerán aquí</translation>
     </message>
 </context>
 <context>
     <name>Controller</name>
     <message>
-        <location filename="../controller.cpp" line="60"/>
+        <location filename="../controller.cpp" line="89"/>
         <source>Shared with #XMCR</source>
         <extracomment>Shared with #XMCR</extracomment>
         <translation>Compartido con #XMCR</translation>
     </message>
 </context>
 <context>
-    <name>FavoritesView</name>
-    <message>
-        <location filename="../qml/FavoritesView.qml" line="73"/>
-        <source>Favorites</source>
-        <translation>Favoritos</translation>
-    </message>
-    <message>
-        <location filename="../qml/FavoritesView.qml" line="84"/>
-        <source>Search</source>
-        <translation>Buscar</translation>
-    </message>
-    <message>
-        <location filename="../qml/FavoritesView.qml" line="157"/>
-        <source>Your favorited entries will appear here</source>
-        <translation>Tus entradas favoritas aparecerán aquí</translation>
-    </message>
-</context>
-<context>
     <name>HomeView</name>
     <message>
-        <location filename="../qml/HomeView.qml" line="25"/>
+        <location filename="../qml/HomeView.qml" line="44"/>
         <source>About</source>
         <translation>Acerca de</translation>
     </message>
     <message>
-        <location filename="../qml/HomeView.qml" line="30"/>
+        <location filename="../qml/HomeView.qml" line="49"/>
         <source>Jump to newest</source>
         <translation>Ir a la más reciente</translation>
     </message>
     <message>
-        <location filename="../qml/HomeView.qml" line="35"/>
+        <location filename="../qml/HomeView.qml" line="54"/>
         <source>Jump to oldest</source>
         <translation>Ir a la más antigua</translation>
     </message>

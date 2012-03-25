@@ -45,6 +45,14 @@ Page {
         }
     }
 
+    Component.onCompleted: {
+        aboutOptions.get(0).title = qsTr('Recommend this app')
+        aboutOptions.get(1).title = qsTr('Tell us what you think')
+        aboutOptions.get(2).title = qsTr('Rate us in the Nokia Store')
+        aboutOptions.get(3).title = qsTr('Follow us on Twitter')
+        aboutOptions.get(4).title = qsTr('Check our other apps')
+    }
+
     ListModel {
         id: aboutOptions
         ListElement {
@@ -207,7 +215,7 @@ Page {
 
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: 'Licencia'
+                text: qsTr('Licence')
                 onClicked: licenseDialog.open()
             }
         }
