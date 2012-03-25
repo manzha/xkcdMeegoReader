@@ -1,3 +1,22 @@
+/**************************************************************************
+ *   XMCR
+ *   Copyright (C) 2011 - 2012 Simon Pena <spena@igalia.com>
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **************************************************************************/
+
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import com.nokia.extras 1.1
@@ -95,9 +114,7 @@ Page {
 
                 Column {
                     id: subcolumn
-                    anchors {
-                        fill: parent
-                    }
+                    anchors.fill: parent
                     Repeater {
                         id: repeater
                         model: aboutOptions
@@ -158,8 +175,7 @@ Page {
                     id: border
                     source: 'qrc:/resources/round-corners-shadow.png'
                     anchors.fill: parent
-                    border.left: 18; border.top: 18
-                    border.right: 18; border.bottom: 18
+                    border { left: 18; top: 18; right: 18; bottom: 18 }
                 }
             }
 
