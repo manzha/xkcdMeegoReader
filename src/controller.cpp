@@ -6,8 +6,10 @@
 #include <QDeclarativeContext>
 #include <QDir>
 #include <QDesktopServices>
-#include <maemo-meegotouch-interfaces/shareuiinterface.h>
-#include <MDataUri>
+#ifndef QT_SIMULATOR
+    #include <maemo-meegotouch-interfaces/shareuiinterface.h>
+    #include <MDataUri>
+#endif
 
 static const QString LAST_UPDATE_KEY("lastUpdate");
 
@@ -50,6 +52,10 @@ Controller::~Controller()
 
 void Controller::share(QString title, QString url)
 {
+#ifdef QT_SIMULATOR
+    Q_UNUSED(title)
+    Q_UNUSED(url)
+#else
     // See https://meego.gitorious.org/meego-sharing-framework/share-ui/blobs/master/examples/link-share/page.cpp
     // and http://forum.meego.com/showthread.php?t=3768
     MDataUri dataUri;
@@ -67,6 +73,7 @@ void Controller::share(QString title, QString url)
     } else {
         qCritical() << "Invalid interface";
     }
+#endif
 }
 
 void Controller::fetchEntries()

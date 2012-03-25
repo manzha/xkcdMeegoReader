@@ -1,7 +1,9 @@
 #include "controller.h"
 #include <QApplication>
 #include <QDeclarativeView>
-#include <MDeclarativeCache>
+#ifndef QT_SIMULATOR
+    #include <MDeclarativeCache>
+#endif
 #include <QDeclarativeContext>
 #include <QTranslator>
 #include <QTextCodec>
@@ -9,7 +11,13 @@
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
+#ifndef QT_SIMULATOR
     QApplication *app = MDeclarativeCache::qApplication(argc, argv);
+    QDeclarativeView *view = MDeclarativeCache::qDeclarativeView();
+#else
+    QApplication *app = new QApplication(argc, argv);
+    QDeclarativeView *view = new QDeclarativeView;
+#endif
     app->setApplicationName("XMCR");
     app->setOrganizationDomain("com.simonpena");
     app->setOrganizationName("simonpena");
@@ -24,7 +32,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         app->installTranslator(&translator);
     }
 
-    QDeclarativeView *view = MDeclarativeCache::qDeclarativeView();
     QDeclarativeContext *context = view->rootContext();
 
     Controller *controller = new Controller(context);
