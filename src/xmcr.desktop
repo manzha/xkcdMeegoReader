@@ -3,5 +3,5 @@ Encoding=UTF-8
 Version=0.1
 Type=Application
 Name=XKCD Reader
-Exec=/usr/bin/invoker --single-instance --splash /usr/share/xmcr/xmcr-splash-portrait.jpg --type=d /usr/bin/xmcr
+Exec=/usr/bin/invoker --single-instance --splash /opt/xmcr/share/xmcr-splash-portrait.jpg --type=d /opt/xmcr/bin/xmcr
 Icon=/usr/share/icons/hicolor/64x64/apps/icon-l-xmcr.png
