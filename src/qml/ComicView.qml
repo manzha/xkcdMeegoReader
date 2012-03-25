@@ -1,6 +1,6 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import com.nokia.extras 1.0
+import com.nokia.extras 1.1
 import 'constants.js' as UIConstants
 import "XMCR.js" as XMCR
 
@@ -39,7 +39,7 @@ Page {
     property bool isLoading: flickable.status == Image.Loading ||
                              (currentEntry && !currentEntry.imageSource)
 
-    property variant currentEntry
+    property variant currentEntry: ''
     property int currentIndex: -1
 
     signal moveToPrevious()
@@ -47,13 +47,13 @@ Page {
     signal moveToRandom()
 
     onStatusChanged: {
-        if (status == PageStatus.Active && currentEntry) {
+        if (status === PageStatus.Active && currentEntry) {
             fetchContent()
         }
     }
 
     onCurrentEntryChanged: {
-        if (status == PageStatus.Active && currentEntry) {
+        if (status === PageStatus.Active && currentEntry) {
             fetchContent()
         }
     }
