@@ -20,8 +20,7 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 import com.nokia.extras 1.0
-import "file:///usr/lib/qt4/imports/com/meego/UIConstants.js" as UIConstants
-import "file:///usr/lib/qt4/imports/com/nokia/extras/constants.js" as ExtrasConstants
+import 'constants.js' as UIConstants
 
 Item {
     id: entryMenuDelegate
@@ -36,7 +35,7 @@ Item {
     property string imageSource
 
     width: parent.width
-    height: ExtrasConstants.LIST_ITEM_HEIGHT
+    height: UIConstants.LIST_ITEM_HEIGHT
 
     BorderImage {
         anchors.fill: parent
@@ -61,48 +60,50 @@ Item {
 
         Column {
             anchors.verticalCenter: parent.verticalCenter
-            width: parent.width - 2 * ExtrasConstants.LIST_ITEM_SPACING -favoriteIcon.width - entryIdText.width
+            width: parent.width - 2 * UIConstants.LIST_ITEM_SPACING - favoriteIcon.width - entryIdText.width
 
-            Text {
+            Label {
                 id: entryTitleText
-                font.family: UIConstants.FONT_FAMILY
-                font.pixelSize: ExtrasConstants.LIST_TILE_SIZE
-                color: (theme.inverted ?
-                            ExtrasConstants.LIST_TITLE_COLOR_INVERTED :
-                            ExtrasConstants.LIST_TITLE_COLOR)
+                platformStyle: LabelStyle {
+                    fontPixelSize: UIConstants.FONT_SLARGE
+                }
                 width: parent.width
                 elide: Text.ElideRight
             }
 
-            Text {
+            Label {
                 id: entryDateText
-                font.family: "Nokia Pure Text Light"
-                font.pixelSize: ExtrasConstants.LIST_SUBTILE_SIZE
-                color: (theme.inverted ?
-                            ExtrasConstants.LIST_SUBTITLE_COLOR_INVERTED :
-                            ExtrasConstants.LIST_SUBTITLE_COLOR)
+                platformStyle: LabelStyle {
+                    fontFamily: "Nokia Pure Text Light"
+                    fontPixelSize: UIConstants.FONT_LSMALL
+                }
+                color: UIConstants.LIST_SUBTITLE_COLOR
                 text: formattedDate
             }
         }
 
         Image {
             id: favoriteIcon
-            anchors.right: entryIdText.left
-            anchors.rightMargin: ExtrasConstants.LIST_ITEM_SPACING
-            anchors.verticalCenter: parent.verticalCenter
+            anchors {
+                right: entryIdText.left
+                rightMargin: UIConstants.LIST_ITEM_SPACING
+                verticalCenter: parent.verticalCenter
+            }
             source: 'image://theme/icon-s-common-favorite-mark'
             visible: isFavorite
         }
 
-        Text {
+        Label {
             id: entryIdText
-            font.family: "Nokia Pure Text Light"
-            font.pixelSize: ExtrasConstants.LIST_SUBTILE_SIZE
-            color: theme.inverted ?
-                       ExtrasConstants.LIST_SUBTITLE_COLOR_INVERTED :
-                       ExtrasConstants.LIST_SUBTITLE_COLOR
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
+            platformStyle: LabelStyle {
+                fontFamily: "Nokia Pure Text Light"
+                fontPixelSize: UIConstants.FONT_LSMALL
+            }
+            color: UIConstants.LIST_SUBTITLE_COLOR
+            anchors {
+                right: parent.right
+                verticalCenter: parent.verticalCenter
+            }
             text: '#' + entryId
         }
     }

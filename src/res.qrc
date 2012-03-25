@@ -24,5 +24,6 @@
         <file>l10n/xmcr.es.qm</file>
         <file>l10n/xmcr.fr.qm</file>
         <file>l10n/xmcr.pt.qm</file>
+        <file>qml/constants.js</file>
     </qresource>
 </RCC>
