@@ -106,7 +106,7 @@ Page {
 
             Label {
                 id: aboutVersion
-                text: 'XMCR 0.4.0'
+                text: 'XMCR 0.4.1'
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
                 platformStyle: LabelStyle {
