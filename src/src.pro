@@ -69,7 +69,7 @@ TRANSLATIONS += \
 unix {
     #VARIABLES
     isEmpty(PREFIX) {
-        PREFIX = /usr
+        PREFIX = /opt/$${TARGET}
     }
     BINDIR = $$PREFIX/bin
     DATADIR =$$PREFIX/share
@@ -82,13 +82,13 @@ unix {
 
     target.path =$$BINDIR
 
-    desktop.path = $$DATADIR/applications
+    desktop.path = /usr/share/applications
     desktop.files += $${TARGET}.desktop
 
-    icon64.path = $$DATADIR/icons/hicolor/64x64/apps
+    icon64.path = /usr/share/icons/hicolor/64x64/apps
     icon64.files += ../data/icon-l-$${TARGET}.png
 
-    splash.path = $$DATADIR/$${TARGET}/
+    splash.path = $$DATADIR/
     splash.files += ../data/xmcr-splash-portrait.jpg
 }
 
