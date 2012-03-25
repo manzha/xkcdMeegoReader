@@ -86,10 +86,9 @@ unix {
     desktop.files += $${TARGET}.desktop
 
     icon64.path = $$DATADIR/icons/hicolor/64x64/apps
-    icon64.files += ../data/$${TARGET}.png
+    icon64.files += ../data/icon-l-$${TARGET}.png
 
     splash.path = $$DATADIR/$${TARGET}/
-    splash.files += ../data/xmcr-splash-landscape.jpg
     splash.files += ../data/xmcr-splash-portrait.jpg
 }
 

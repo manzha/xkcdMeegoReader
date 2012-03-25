@@ -2,7 +2,7 @@
 
 set -e
 
-if [ "$1" = purge ] ; then
+if [ "$1" = purge -o "$1" = remove ] ; then
   # Delete configuration, cache and archive database
   rm -rf /home/user/.config/simonpena/XMCR.conf \
      /home/user/.local/share/data/simonpena/XMCR \
