@@ -1,6 +1,6 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import com.nokia.extras 1.0
+import com.nokia.extras 1.1
 
 // Zoom features support (both pinch gesture and double click) taken from
 // http://projects.developer.nokia.com/QuickFlickr/browser/qml/ZoomableImage.qml
@@ -96,6 +96,7 @@ Flickable {
         property bool swipeDone: false
         property int startX
         property int startY
+        property real startScale: pinchArea.minScale
 
         Timer {
             id: clickTimer
@@ -131,21 +132,24 @@ Flickable {
         onPressed: {
             startX = (mouse.x / image.scale)
             startY = (mouse.y / image.scale)
+            startScale = image.scale
         }
 
         onReleased: {
-            var deltaX = (mouse.x / image.scale) - startX
-            var deltaY = (mouse.y / image.scale) - startY
+            if (image.scale === startScale) {
+                var deltaX = (mouse.x / image.scale) - startX
+                var deltaY = (mouse.y / image.scale) - startY
 
-            // Swipe is only allowed when we're not zoomed in
-            if (image.scale == pinchArea.minScale &&
-                    (Math.abs(deltaX) > 50 || Math.abs(deltaY) > 50)) {
-                swipeDone = true
+                // Swipe is only allowed when we're not zoomed in
+                if (image.scale == pinchArea.minScale &&
+                        (Math.abs(deltaX) > 50 || Math.abs(deltaY) > 50)) {
+                    swipeDone = true
 
-                if (deltaX > 30) {
-                    flickable.swipeRight()
-                } else if (deltaX < -30) {
-                    flickable.swipeLeft()
+                    if (deltaX > 30) {
+                        flickable.swipeRight()
+                    } else if (deltaX < -30) {
+                        flickable.swipeLeft()
+                    }
                 }
             }
         }
