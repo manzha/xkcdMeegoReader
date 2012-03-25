@@ -53,7 +53,6 @@ OTHER_FILES += \
     qml/FastScroll.qml \
     qml/FastScrollStyle.qml \
     qml/FastScroll.js \
-    qml/FavoritesView.qml \
     qml/constants.js
 
 RESOURCES += \

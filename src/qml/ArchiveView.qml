@@ -1,12 +1,13 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import com.nokia.extras 1.0
+import com.nokia.extras 1.1
 import 'constants.js' as UIConstants
-import "XMCR.js" as XMCR
+import 'XMCR.js' as Util
 
 Page {
     id: archivePage
 
+    property bool storesFavorites: false
     property real contentYPos: list.visibleArea.yPosition *
                                Math.max(list.height, list.contentHeight)
     property bool showListHeader: false
@@ -14,14 +15,18 @@ Page {
     property variant archiveLastUpdate: controller.lastUpdateDate()
 
     function isActivePage(page) {
-        return (tabGroup.currentTab.currentPage == page)
+        return (tabGroup.currentTab.currentPage === page)
     }
 
     onStatusChanged: {
-        if (status == PageStatus.Active) {
-            entriesModel.setFavoritesFiltered(false)
+        if (status === PageStatus.Active) {
+            entriesModel.setFavoritesFiltered(storesFavorites)
             entriesModel.setFilterWildcard(filterEntries.text)
-            if (!filterEntries.text && list.model.count === 0) {
+            favoritesEmpty.visible = storesFavorites &&
+                    list.model.count === 0
+            if (!filterEntries.text &&
+                    list.model.count === 0 &&
+                    !storesFavorites) {
                 controller.fetchEntries()
                 fetchingEntries = true
             }
@@ -79,7 +84,7 @@ Page {
 
     function showRandom() {
         if (isActivePage(archivePage)) {
-            list.currentIndex = XMCR.getRandomStripNumber(list.model.count)
+            list.currentIndex = Util.getRandomStripNumber(list.model.count)
             list.positionViewAtIndex(list.currentIndex, ListView.Beginning)
             comicView.currentEntry = list.currentItem
             comicView.currentIndex = list.currentIndex
@@ -98,13 +103,19 @@ Page {
 
     Header {
         id: topBar
-        title: qsTr('Archive')
+        title: storesFavorites ? qsTr('Favorites') : qsTr('Archive')
     }
 
     TextField {
         id: filterEntries
-        anchors { top: topBar.bottom; left: parent.left; right: parent.right }
-        anchors { topMargin: UIConstants.DEFAULT_MARGIN; leftMargin: UIConstants.DEFAULT_MARGIN; rightMargin: UIConstants.DEFAULT_MARGIN }
+        anchors {
+            top: topBar.bottom
+            left: parent.left
+            right: parent.right
+            topMargin: UIConstants.DEFAULT_MARGIN
+            leftMargin: UIConstants.DEFAULT_MARGIN
+            rightMargin: UIConstants.DEFAULT_MARGIN
+        }
         placeholderText: qsTr('Search')
         inputMethodHints: Qt.ImhNoPredictiveText
 
@@ -138,7 +149,12 @@ Page {
 
     ListView {
         id: list
-        anchors { top: filterEntries.bottom; left: parent.left; right: parent.right; bottom: parent.bottom }
+        anchors {
+            top: filterEntries.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
         model: entriesModel
         clip: true
         delegate: EntryMenuDelegate {
@@ -158,7 +174,7 @@ Page {
         section.delegate: ListSectionDelegate { sectionName: section }
         header: RefreshHeader {
             id: refreshHeader
-            showHeader: showListHeader
+            showHeader: !storesFavorites && showListHeader
             loading: fetchingEntries
             yPosition: contentYPos
             lastUpdate: archiveLastUpdate
@@ -183,7 +199,7 @@ Page {
 
         Timer {
             id: listTimer
-            interval: XMCR.REFRESH_TIMEOUT
+            interval: Util.REFRESH_TIMEOUT
             onTriggered: {
                 if (!fetchingEntries) {
                     onLoadingFinished()
@@ -200,7 +216,29 @@ Page {
         anchors.centerIn: parent
     }
 
+    Label {
+        id: favoritesEmpty
+        platformStyle: LabelStyle {
+            fontPixelSize: UIConstants.FONT_XLARGE
+        }
+        color: UIConstants.COLOR_FOREGROUND
+        width: parent.width - UIConstants.DEFAULT_MARGIN * 2
+        anchors.centerIn: parent
+        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+        opacity: 0.5
+        text: qsTr('Your favorited entries will appear here')
+        horizontalAlignment: Text.AlignHCenter
+    }
+
     FastScroll {
         listView: list
+        visible: !storesFavorites
+        enabled: visible
+    }
+
+    ScrollDecorator {
+        flickableItem: list
+        visible: storesFavorites
+        enabled: visible
     }
 }

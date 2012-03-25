@@ -39,12 +39,23 @@ Page {
     }
     TabbedToolBar {
         id: tabbedTools
-        onShowMenu: (mainMenu.status == DialogStatus.Closed) ?
+        onShowMenu: (mainMenu.status === DialogStatus.Closed) ?
                         mainMenu.open() : mainMenu.close()
     }
-    ArchiveView { id: archiveView }
-    FavoritesView { id: favoritesView }
-    Component { id: aboutView; AboutView { } }
+
+    Component {
+        id: archiveView
+        ArchiveView { }
+    }
+
+    Component {
+        id: favoritesView
+        ArchiveView { storesFavorites: true }
+    }
+
+    Component { id: aboutView
+        AboutView { }
+    }
 
     Component.onCompleted: {
         archiveTab.push(archiveView)
