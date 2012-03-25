@@ -9,9 +9,13 @@
 #ifndef QT_SIMULATOR
     #include <maemo-meegotouch-interfaces/shareuiinterface.h>
     #include <MDataUri>
+    #include <QDBusInterface>
+    #include <QDBusPendingCall>
 #endif
+#include <QStringList>
 
 static const QString LAST_UPDATE_KEY("lastUpdate");
+static const QString STORE_DBUS_IFACE("com.nokia.OviStoreClient");
 
 Controller::Controller(QDeclarativeContext *context) :
     QObject(),
@@ -118,4 +122,23 @@ void Controller::onEntriesFetched(int count)
     m_sortFilterModel->setDynamicSortFilter(false);
     m_lastUpdateDate = QDateTime::currentDateTime();
     m_settings.setValue(LAST_UPDATE_KEY, m_lastUpdateDate);
+}
+
+void Controller::openStoreClient(const QString& url) const
+{
+    // Based on
+    // https://gitorious.org/n9-apps-client/n9-apps-client/blobs/master/daemon/notificationhandler.cpp#line178
+#ifdef QT_SIMULATOR
+    Q_UNUSED(url)
+#else
+    QDBusInterface dbusInterface(STORE_DBUS_IFACE,
+                                 "/",
+                                 STORE_DBUS_IFACE,
+                                 QDBusConnection::sessionBus());
+
+    QStringList callParams;
+    callParams << url;
+
+    dbusInterface.asyncCall("LaunchWithLink", QVariant::fromValue(callParams));
+#endif
 }

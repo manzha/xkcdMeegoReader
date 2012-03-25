@@ -33,6 +33,8 @@ public Q_SLOTS:
 
     const QString localSource(const QString &remoteSource) const;
 
+    void openStoreClient(const QString& url) const;
+
 signals:
     //! Emitted when the comic entries have been fetched
     //! \param ok Tells whether the comic entries were successfully fetched
