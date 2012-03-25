@@ -1,5 +1,6 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
+import com.nokia.extras 1.1
 import 'constants.js' as UIConstants
 
 Page {
@@ -25,6 +26,35 @@ Page {
         }
     }
 
+    ListModel {
+        id: aboutOptions
+        ListElement {
+            title: 'Recomienda esta aplicación'
+            action: 'openExternally'
+            data: 'mailto:?subject=Download%20XMCR&body=Available%20at%20http://store.ovi.com/content/205765'
+        }
+        ListElement {
+            title: 'Cuéntanos tu opinión'
+            action: 'openExternally'
+            data: 'mailto:spena@igalia.com?subject=XMCR'
+        }
+        ListElement {
+            title: 'Valóranos en la Nokia Store'
+            action: 'openStore'
+            data: 'http://store.ovi.com/content/205765'
+        }
+        ListElement {
+            title: 'Síguenos en Twitter'
+            action: 'openExternally'
+            data: 'https://twitter.com/#!/spenap'
+        }
+        ListElement {
+            title: 'Otras de nuestras aplicaciones'
+            action: 'openStore'
+            data: 'http://store.ovi.com/publisher/Simon%20Pena/'
+        }
+    }
+
     Flickable {
         id: flick
         clip: true
@@ -44,71 +74,133 @@ Page {
             Image {
                 id: aboutImage
                 anchors.horizontalCenter: parent.horizontalCenter
-                source: 'qrc:/resources/xmcr.svg'
+                source: 'qrc:/resources/icon-about-xmcr.png'
             }
 
-            Text {
+            Label {
                 id: aboutVersion
-                text: 'XMCR 0.3'
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.family: UIConstants.FONT_FAMILY
-                font.pixelSize: UIConstants.FONT_XLARGE
-                color: !theme.inverted ?
-                           UIConstants.COLOR_FOREGROUND :
-                           UIConstants.COLOR_INVERTED_FOREGROUND
-            }
-
-            Text {
-                id: aboutCopyright
-                text: 'Copyright © 2011 Simon Pena'
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.family: UIConstants.FONT_FAMILY
-                font.pixelSize: UIConstants.FONT_XLARGE
-                color: !theme.inverted ?
-                           UIConstants.COLOR_FOREGROUND :
-                           UIConstants.COLOR_INVERTED_FOREGROUND
-            }
-
-            Text {
-                id: aboutContact
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.family: UIConstants.FONT_FAMILY
-                font.pixelSize: UIConstants.FONT_LSMALL
-                color: !theme.inverted ?
-                           UIConstants.COLOR_FOREGROUND :
-                           UIConstants.COLOR_INVERTED_FOREGROUND
-                text: '<a href="mailto:spena@igalia.com">spena@igalia.com</a> | ' +
-                      '<a href="http://www.simonpena.com/?utm_source=harmattan&utm_medium=apps&utm_campaign=xmcr">simonpena.com</a>'
-                onLinkActivated: Qt.openUrlExternally(link)
-            }
-
-            Text {
-                id: aboutMeneameDisclaimer
-                font.family: UIConstants.FONT_FAMILY
-                font.pixelSize: UIConstants.FONT_LSMALL
-                color: !theme.inverted ?
-                           UIConstants.COLOR_FOREGROUND :
-                           UIConstants.COLOR_INVERTED_FOREGROUND
+                text: 'XMCR 0.4.0'
                 width: parent.width
-                wrapMode: Text.WordWrap
+                horizontalAlignment: Text.AlignHCenter
+                platformStyle: LabelStyle {
+                    fontPixelSize: UIConstants.FONT_XLARGE
+                }
+                color: UIConstants.COLOR_FOREGROUND
+            }
+
+            Rectangle {
+                width: parent.width
+                height: repeater.model.count * UIConstants.LIST_ITEM_HEIGHT_SMALL
+                color: 'white'
+
+                Column {
+                    id: subcolumn
+                    anchors {
+                        fill: parent
+                    }
+                    Repeater {
+                        id: repeater
+                        model: aboutOptions
+                        Item {
+                            height: UIConstants.LIST_ITEM_HEIGHT_SMALL
+                            width: parent.width
+
+                            BorderImage {
+                                anchors.fill: parent
+                                visible: mouseArea.pressed
+                                source: 'image://theme/meegotouch-list-fullwidth-background-pressed-vertical-center'
+                            }
+
+                            Label {
+                                anchors {
+                                    left: parent.left
+                                    leftMargin: UIConstants.DEFAULT_MARGIN
+                                    verticalCenter: parent.verticalCenter
+                                }
+                                platformStyle: LabelStyle {
+                                    fontPixelSize: UIConstants.FONT_SLARGE
+                                }
+                                text: model.title
+                            }
+
+                            MoreIndicator {
+                                anchors {
+                                    right: parent.right
+                                    rightMargin: UIConstants.DEFAULT_MARGIN
+                                    verticalCenter: parent.verticalCenter
+                                }
+                            }
+
+                            Rectangle {
+                                anchors.bottom: parent.bottom
+                                width: parent.width
+                                height: 1
+                                color: UIConstants.COLOR_BUTTON_DISABLED_FOREGROUND
+                                visible: index !== repeater.model.count - 1
+                            }
+
+                            MouseArea {
+                                id: mouseArea
+                                anchors.fill: parent
+                                onClicked: {
+                                    if (model.action === 'openStore') {
+                                        controller.openStoreClient(model.data)
+                                    } else if (model.action === 'openExternally') {
+                                        Qt.openUrlExternally(model.data)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                BorderImage {
+                    id: border
+                    source: 'qrc:/resources/round-corners-shadow.png'
+                    anchors.fill: parent
+                    border.left: 18; border.top: 18
+                    border.right: 18; border.bottom: 18
+                }
+            }
+
+            Label {
+                id: aboutCopyright
+                text: 'Copyright © 2011 - 2012 Simon Pena'
+                width: parent.width
+                horizontalAlignment: Text.AlignHCenter
+                platformStyle: LabelStyle {
+                    fontPixelSize: UIConstants.FONT_LSMALL
+                    fontFamily: UIConstants.FONT_FAMILY_LIGHT
+                }
+                color: UIConstants.COLOR_FOREGROUND
+            }
+
+            Label {
+                id: aboutDisclaimer
                 text: qsTr('This application displays content from <a href="http://xkcd.com/">XKCD</a> '+
                            'but is not endorsed nor certified by XKCD.')
+                width: parent.width
+                horizontalAlignment: Text.AlignJustify
+                platformStyle: LabelStyle {
+                    fontPixelSize: UIConstants.FONT_LSMALL
+                    fontFamily: UIConstants.FONT_FAMILY_LIGHT
+                }
+                color: UIConstants.COLOR_FOREGROUND
                 onLinkActivated: Qt.openUrlExternally(link)
             }
 
-            Text {
-                id: aboutLicense
-                font.pixelSize: UIConstants.FONT_LSMALL
-                color: !theme.inverted ?
-                           UIConstants.COLOR_FOREGROUND :
-                           UIConstants.COLOR_INVERTED_FOREGROUND
-                width: parent.width
-                wrapMode: Text.WordWrap
-                font.family: "Nokia Pure Text Light"
-                text: license
-                onLinkActivated: Qt.openUrlExternally(link)
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: 'Licencia'
+                onClicked: licenseDialog.open()
             }
         }
+    }
+
+    QueryDialog {
+        id: licenseDialog
+        message: license
+        acceptButtonText: 'OK'
     }
 
     ScrollDecorator {

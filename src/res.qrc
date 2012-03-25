@@ -6,7 +6,6 @@
         <file>qml/AboutView.qml</file>
         <file>qml/workerscript.js</file>
         <file>qml/XMCR.js</file>
-        <file>resources/xmcr.svg</file>
         <file>qml/HomeView.qml</file>
         <file>qml/ComicView.qml</file>
         <file>qml/ListSectionDelegate.qml</file>
@@ -24,5 +23,7 @@
         <file>l10n/xmcr.fr.qm</file>
         <file>l10n/xmcr.pt.qm</file>
         <file>qml/constants.js</file>
+        <file>resources/round-corners-shadow.png</file>
+        <file>resources/icon-about-xmcr.png</file>
     </qresource>
 </RCC>
