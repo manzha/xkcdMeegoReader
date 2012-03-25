@@ -1,3 +1,14 @@
+xmcr (0.4.0) unstable; urgency=low
+
+  * Updated About View
+  * Fixed bug so it no longer navigates to next item when zooming out with
+  	double tap
+  * Removed some run-time warnings
+  * Adapted header to new system fonts
+  * Updated graphics (icons, splash, header)
+
+ -- Simon Pena <spena@igalia.com>  Sun, 25 Mar 2012 20:37:01 +0300
+
 xmcr (0.3.1) unstable; urgency=low
 
   * Fix navigation in the Favorites View
