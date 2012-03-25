@@ -1,5 +1,5 @@
 TEMPLATE = app
-QT += declarative webkit
+QT += declarative webkit sql
 TARGET = "xmcr"
 DEPENDPATH += .
 INCLUDEPATH += .
