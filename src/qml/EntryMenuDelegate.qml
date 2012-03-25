@@ -19,7 +19,7 @@
 
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import com.nokia.extras 1.0
+import com.nokia.extras 1.1
 import 'constants.js' as UIConstants
 
 Item {
@@ -40,9 +40,7 @@ Item {
     BorderImage {
         anchors.fill: parent
         visible: mouseArea.pressed
-        source: theme.inverted ?
-                    'image://theme/meegotouch-list-fullwidth-inverted-background-pressed-vertical-center':
-                    'image://theme/meegotouch-list-fullwidth-background-pressed-vertical-center'
+        source: 'image://theme/meegotouch-list-fullwidth-background-pressed-vertical-center'
     }
 
     MouseArea {
@@ -52,8 +50,8 @@ Item {
     }
 
     Item {
-        anchors.fill: parent
         anchors {
+            fill: parent
             leftMargin: UIConstants.DEFAULT_MARGIN
             rightMargin: UIConstants.DEFAULT_MARGIN
         }
