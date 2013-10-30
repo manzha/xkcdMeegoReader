@@ -55,7 +55,7 @@ void ComicEntryFetcher::onLoadFinished(bool ok)
     if (ok) {
         QList<ComicEntry> entries;
         QWebElement document = m_webView->page()->mainFrame()->documentElement();
-        QWebElementCollection comicLinks = document.findAll("div#middleContent.dialog div.bd div.c div.s a");
+        QWebElementCollection comicLinks = document.findAll("div#middleContainer.box a");
 
         if (comicLinks.count() > 0) {
             Q_FOREACH(QWebElement comicLink, comicLinks) {

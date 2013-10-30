@@ -53,7 +53,17 @@ OTHER_FILES += \
     qml/FastScroll.qml \
     qml/FastScrollStyle.qml \
     qml/FastScroll.js \
-    qml/constants.js
+    qml/constants.js \
+    l10n/xmcr.en.qm \
+    l10n/xmcr.pt.ts \
+    l10n/xmcr.pt.qm \
+    l10n/xmcr.fr.ts \
+    l10n/xmcr.fr.qm \
+    l10n/xmcr.es.ts \
+    l10n/xmcr.es.qm \
+    l10n/xmcr.en.ts \
+    l10n/xmcr.de.ts \
+    l10n/xmcr.de.qm
 
 RESOURCES += \
     res.qrc
